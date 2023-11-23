@@ -40,7 +40,7 @@
                                 <h3 class="card-title">Categories</h3>
                                 {{-- @if ($pagesModule['edit_access'] == 1 || $pagesModule['full_access'] == 1)
                                     <a style="max-width:150px;float:right; display:inline-block"
-                                    href="{{ url('admin/add-edit-cms-page') }}" class="btn btn-block btn-primary">
+                                    href="{{ url('admin/add-edit-page') }}" class="btn btn-block btn-primary">
                                     Categories</a>
                                 @endif --}}
                             </div>
@@ -71,13 +71,13 @@
                                                 <td> {{ date('F j, Y, g:i a', strtotime($category['created_at'])) }} </td>
                                                 <td>
                                                     @if ($category['status'] == 1)
-                                                        <a style="color:#3f6ed3" class="updateCmscategoryStatus"
+                                                        <a style="color:#3f6ed3" class="updateCategoryStatus"
                                                             id="category-{{ $category['id'] }}" category_id="{{ $category['id'] }}"
                                                             href="javascript:void(0)">
                                                             <i class="fas fa-toggle-on" status="Active"></i>
                                                         </a>
                                                     @else
-                                                        <a class="updateCmscategoryStatus" id="category-{{ $category['id'] }}"
+                                                        <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
                                                             category_id="{{ $category['id'] }}" style="color: gray"
                                                             href="javascript:void(0)">
                                                             <i class="fas fa-toggle-off" status="Inactive"></i>
@@ -86,13 +86,13 @@
                                                     &nbsp;&nbsp;
 
                                                     <a style="color:#3f6ed3"
-                                                        href="{{ url('admin/add-edit-cms-category') . '/' . $category['id'] }}"><i
+                                                        href="{{ url('admin/add-edit-category') . '/' . $category['id'] }}"><i
                                                             class="fas fa-edit"></i></a>
                                                     &nbsp;&nbsp;
 
-                                                    <a style="color:#3f6ed3" class="confirmDelete" name="CMS category"
-                                                        title="Delete CMS category" href="javascript:void(0)" record="cms-category"
-                                                        record_id="{{ $category['id'] }}" <?php /*href="{{ url('admin/delete-cms-category').'/'.$category['id'] }}" */ ?>><i
+                                                    <a style="color:#3f6ed3" class="confirmDelete" name="Category"
+                                                        title="Delete Category" href="javascript:void(0)" record="category"
+                                                        record_id="{{ $category['id'] }}" <?php /*href="{{ url('admin/delete-category').'/'.$category['id'] }}" */ ?>><i
                                                             class="fas fa-trash"></i></a>
 
                                                 </td>
