@@ -38,11 +38,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Categories</h3>
-                                {{-- @if ($pagesModule['edit_access'] == 1 || $pagesModule['full_access'] == 1)
                                     <a style="max-width:150px;float:right; display:inline-block"
-                                    href="{{ url('admin/add-edit-page') }}" class="btn btn-block btn-primary">
-                                    Categories</a>
-                                @endif --}}
+                                    href="{{ url('admin/add-edit-category') }}" class="btn btn-block btn-primary">
+                                    Add Categories</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
