@@ -18,3 +18,8 @@ php artisan make:model Admin
 //issue in 28 video subadmin password while adding subadmin and updating
 the hash of the password is change need to resolve it
 
+
+
+2023/11/26
+
+category image update unlink issue in front/images/categories

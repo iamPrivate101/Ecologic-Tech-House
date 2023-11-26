@@ -90,7 +90,7 @@
 
                                                     <a style="color:#3f6ed3" class="confirmDelete" name="Category"
                                                         title="Delete Category" href="javascript:void(0)" record="category"
-                                                        record_id="{{ $category['id'] }}" <?php /*href="{{ url('admin/delete-category').'/'.$category['id'] }}" */ ?>><i
+                                                        record_id="{{ $category['id'] }}" ><i
                                                             class="fas fa-trash"></i></a>
 
                                                 </td>

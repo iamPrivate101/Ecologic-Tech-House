@@ -57,10 +57,19 @@ class CategoryController extends Controller
             $data = $request->all();
             // dd($data);die;
 
-            $rules = [
-                'category_name' => 'required',
-                'url' => 'required|unique:categories'
-            ];
+            if($id == ""){
+                $rules = [
+                    'category_name' => 'required',
+                    'url' => 'required|unique:categories'
+                ];
+            }else{
+                $rules = [
+                    'category_name' => 'required',
+                    'url' => 'required'
+                ];
+            }
+
+
 
             $customMessages = [
                 'category_name.required' => 'Category Name Required!',
@@ -107,6 +116,25 @@ class CategoryController extends Controller
             return redirect('admin/categories')->with('success_message',$message);
 
         }
-        return view('admin.categories.add_edit_category')->with(compact('title','getCategories'));
+        return view('admin.categories.add_edit_category')->with(compact('title','getCategories', 'category'));
+    }
+
+
+    public function deleteCategoryImage($id){
+        //Get Category Image
+        $categoryImage = Category::select('category_image')->where('id',$id)->first();
+
+        //Get Category Image Path
+        $category_image_path = 'front/images/categories/';
+
+        //Delete Category Image from Categories Folder If Exists
+        if(file_exists($category_image_path.$categoryImage->category_image)){
+            unlink($category_image_path.$categoryImage->category_image);
+        }
+
+        //Delete Category image from categories table
+        Category::where('id',$id)->update(['category_image'=>'']);
+
+        return redirect()->back()->with('success_message','Category Image Deleted Successfully!');
     }
 }
