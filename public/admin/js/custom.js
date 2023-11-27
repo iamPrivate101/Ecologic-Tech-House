@@ -144,4 +144,31 @@ $(document).ready(function () {
         });
 
 
+         //update Product Status for toggele on off button
+        $(document).on("click", ".updateProductStatus", function () {
+            var status = $(this).children("i").attr("status");
+            var product_id = $(this).attr("product_id");
+            // alert(product_id);
+            // alert(status);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: '/admin/update-product-status',
+                data: { status: status, product_id: product_id },
+                success: function (resp) {
+                    if (resp['status'] == 0) {
+                        $("#product-" + product_id).html("<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i> ");
+                    } else {
+                        $("#product-" + product_id).html("<i class='fas fa-toggle-on'  status='Active'></i> ");
+                    }
+
+                }, error: function () {
+                    alert("Error");
+                }
+            })
+        });
+
+
 });

@@ -93,6 +93,23 @@
                                                     @php $fullCMSPages ="" @endphp
                                                 @endif
                                             @endif
+                                            @if ($role['module'] == 'categories')
+                                                @if ($role['view_access'] == 1)
+                                                    @php $viewCategories ="checked" @endphp
+                                                @else
+                                                    @php $viewCategories ="" @endphp
+                                                @endif
+                                                @if ($role['edit_access'] == 1)
+                                                    @php $editCategories ="checked" @endphp
+                                                @else
+                                                    @php $editCategories ="" @endphp
+                                                @endif
+                                                @if ($role['full_access'] == 1)
+                                                    @php $fullCategories ="checked" @endphp
+                                                @else
+                                                    @php $fullCategories ="" @endphp
+                                                @endif
+                                            @endif
                                         @endforeach
                                     @endif
 
@@ -110,6 +127,24 @@
                                             &nbsp;&nbsp;
                                             <input type="checkbox" name="cms_pages[full]" value="1"
                                             @if (isset($fullCMSPages)) {{ $fullCMSPages }} @endif>
+                                            &nbsp;&nbsp; Full
+                                            Access
+                                            &nbsp;&nbsp;
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="categories">Categories: &nbsp;&nbsp;</label>
+                                            <input type="checkbox" name="categories[view]" value="1"
+                                                @if (isset($viewCategories)) {{ $viewCategories }} @endif>
+                                            &nbsp;&nbsp;View Access
+                                            &nbsp;&nbsp;
+                                            <input type="checkbox" name="categories[edit]" value="1"
+                                            @if (isset($editCategories)) {{ $editCategories }} @endif>
+                                            &nbsp;&nbsp; Edit
+                                            Access
+                                            &nbsp;&nbsp;
+                                            <input type="checkbox" name="categories[full]" value="1"
+                                            @if (isset($fullCategories)) {{ $fullCategories }} @endif>
                                             &nbsp;&nbsp; Full
                                             Access
                                             &nbsp;&nbsp;
