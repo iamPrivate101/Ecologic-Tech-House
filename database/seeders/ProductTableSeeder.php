@@ -19,7 +19,27 @@ class ProductTableSeeder extends Seeder
             'product_video'=>'','description'=>'test production','wash_care'=>'','keywords'=>'','fabric'=>'','pattern'=>'','sleeve'=>'','fit'=>'','occassion'=>'',
             'meta_title'=>'','meta_description'=>'','meta_keywords'=>'','is_featured'=>'Yes','status'=>1],
 
-            ['id'=>2,'category_id'=>'1','brand_id'=>0,'product_name'=>'White Tshirt','product_code'=>'BT001','product_color'=>'Dark White','family_color'=>'Blue',
+            ['id'=>2,'category_id'=>'5','brand_id'=>0,'product_name'=>'White Tshirt','product_code'=>'BT001','product_color'=>'Dark White','family_color'=>'Blue',
+            'group_code'=>'TSHIRT001','product_price'=>1500,'product_discount'=>'10','discount_type'=>'product','final_price'=>1350,'product_weight'=>500,
+            'product_video'=>'','description'=>'test production','wash_care'=>'','keywords'=>'','fabric'=>'','pattern'=>'','sleeve'=>'','fit'=>'','occassion'=>'',
+            'meta_title'=>'','meta_description'=>'','meta_keywords'=>'','is_featured'=>'Yes','status'=>1],
+
+            ['id'=>3,'category_id'=>'6','brand_id'=>0,'product_name'=>'pant','product_code'=>'BT001','product_color'=>'Dark White','family_color'=>'Blue',
+            'group_code'=>'TSHIRT001','product_price'=>1500,'product_discount'=>'10','discount_type'=>'product','final_price'=>1350,'product_weight'=>500,
+            'product_video'=>'','description'=>'test production','wash_care'=>'','keywords'=>'','fabric'=>'','pattern'=>'','sleeve'=>'','fit'=>'','occassion'=>'',
+            'meta_title'=>'','meta_description'=>'','meta_keywords'=>'','is_featured'=>'Yes','status'=>1],
+
+            ['id'=>4,'category_id'=>'7','brand_id'=>0,'product_name'=>'computer one s','product_code'=>'BT001','product_color'=>'Dark White','family_color'=>'Blue',
+            'group_code'=>'TSHIRT001','product_price'=>1500,'product_discount'=>'10','discount_type'=>'product','final_price'=>1350,'product_weight'=>500,
+            'product_video'=>'','description'=>'test production','wash_care'=>'','keywords'=>'','fabric'=>'','pattern'=>'','sleeve'=>'','fit'=>'','occassion'=>'',
+            'meta_title'=>'','meta_description'=>'','meta_keywords'=>'','is_featured'=>'Yes','status'=>1],
+
+            ['id'=>5,'category_id'=>'8','brand_id'=>0,'product_name'=>'laptop s','product_code'=>'BT001','product_color'=>'Dark White','family_color'=>'Blue',
+            'group_code'=>'TSHIRT001','product_price'=>1500,'product_discount'=>'10','discount_type'=>'product','final_price'=>1350,'product_weight'=>500,
+            'product_video'=>'','description'=>'test production','wash_care'=>'','keywords'=>'','fabric'=>'','pattern'=>'','sleeve'=>'','fit'=>'','occassion'=>'',
+            'meta_title'=>'','meta_description'=>'','meta_keywords'=>'','is_featured'=>'Yes','status'=>1],
+
+            ['id'=>6,'category_id'=>'7','brand_id'=>0,'product_name'=>'dasdasd','product_code'=>'BT001','product_color'=>'Dark White','family_color'=>'Blue',
             'group_code'=>'TSHIRT001','product_price'=>1500,'product_discount'=>'10','discount_type'=>'product','final_price'=>1350,'product_weight'=>500,
             'product_video'=>'','description'=>'test production','wash_care'=>'','keywords'=>'','fabric'=>'','pattern'=>'','sleeve'=>'','fit'=>'','occassion'=>'',
             'meta_title'=>'','meta_description'=>'','meta_keywords'=>'','is_featured'=>'Yes','status'=>1],
