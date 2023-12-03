@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Color;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Color;
+use App\Models\ProductsImage;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
@@ -62,7 +65,7 @@ class ProductsController extends Controller
 
         if($request->isMethod('post')){
             $data = $request->all();
-
+            // dd($data);
             //Product Validation
             $rules = [
                 'category_id' => 'required',
@@ -109,6 +112,14 @@ class ProductsController extends Controller
                 }
             }
 
+            if(!isset($data['product_discount']) || empty($data['product_discount'])){
+                $data['product_discount'] = '0';
+            }
+
+            if(!isset($data['product_weight'])){
+                $data['product_weight'] = 0;
+            }
+
             $product->category_id = $data['category_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
@@ -118,13 +129,14 @@ class ProductsController extends Controller
             $product->product_price = $data['product_price'];
             $product->product_discount = $data['product_discount'];
 
+
             if(!empty($data['product_discount']) && $data['product_discount'] > 0 ){
                 $product->discount_type = 'product';
                 $product->final_price = $data['product_price'] - ($data['product_price'] * $data['product_discount'])/100;
             }else{
                 $getCategoryDiscount = Category::select('category_discount')->where('id',$data['category_id'])->first();
                 if($getCategoryDiscount->category_discount == 0 ){
-                    $product->product_discount = "";
+                    $product->product_discount = "0";
                     $product->final_price = $product->product_price;
 
                 }else{
@@ -132,6 +144,7 @@ class ProductsController extends Controller
                     $product->final_price = $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount)/100;
                 }
             }
+
 
             $product->product_weight = $data['product_weight'];
             $product->description = $data['description'];
@@ -152,6 +165,51 @@ class ProductsController extends Controller
             }
             $product->status = 1;
             $product->save();
+
+            //for product images
+            if($id == ''){
+                 $product_id = DB::getPdo()->lastInsertId(); //get the id of last insert product for the image
+            }else{
+                 $product_id = $id;
+            }
+
+            if($request->hasFile('product_images')){
+                $images = $request->file('product_images');
+
+                foreach ($images as $key => $image) {
+                    //Generate Temp Image
+                    $image_temp = Image::make($image);
+
+                    //Get Image Extension
+                    $extension = $image->getClientOriginalExtension();
+
+                    //Generate New Image Name
+                    $imageName = 'product-'.date('YmdHis').rand(111,999).'.'.$extension;
+
+                    //Image Path For Small, Medium, Large
+                    $largeImagePath = 'front/images/products/large/'.$imageName;
+                    $mediumImagePath = 'front/images/products/medium/'.$imageName;
+                    $smallImagePath = 'front/images/products/small/'.$imageName;
+
+                    //Upload the Large,Medium,Small Images after Resize
+                    Image::make($image_temp)->resize(1040,1200)->save($largeImagePath);
+                    Image::make($image_temp)->resize(520,600)->save($mediumImagePath);
+                    Image::make($image_temp)->resize(260,300)->save($smallImagePath);
+
+                    //Insert Image name in product_images table
+                    $image = new ProductsImage();
+                    $image->image = $imageName;
+                    $image->product_id = $product_id;
+                    $image->status = 1;
+                    $image->image_sort = 1;
+                    $image->save();
+
+
+
+
+
+                }
+            }
 
             return redirect('admin/products')->with('success_message',$message);
 
