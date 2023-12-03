@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Color;
 use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
@@ -44,6 +45,7 @@ class ProductsController extends Controller
     public function addEditProduct(Request $request, $id=null){
         //Get Categories and their sub categories
         $getCategories = Category::getCategories();
+        $familyColors = Color::colors();
 
         //Get Product Filters
         $productsFilters = Product::productsFilters();
@@ -53,7 +55,7 @@ class ProductsController extends Controller
             $product = new Product();
             $message = 'New Product Added Successfully!';
         }else{
-            $product = Product::where($id);
+            $product = Product::find($id);
             $title = 'Update product';
             $message = 'Product Updated Successfully!';
         }
@@ -99,7 +101,7 @@ class ProductsController extends Controller
                     // $videoName = $video_tmp->getClientOriginalName();
                     $videoExtension = $video_tmp->getClientOriginalExtension();
                     $videoName = date('YmdHis').rand().'.'.$videoExtension;
-                    $videoPath = "front/videos/";
+                    $videoPath = "front/videos/products";
                     $video_tmp->move($videoPath,$videoName);
 
                     //Save Video Name in Product Table
@@ -134,6 +136,7 @@ class ProductsController extends Controller
             $product->product_weight = $data['product_weight'];
             $product->description = $data['description'];
             $product->wash_care = $data['wash_care'];
+            $product->search_keywords = $data['search_keywords'];
             $product->laptop = $data['laptop'];
             $product->computer = $data['computer'];
             $product->mobile = $data['mobile'];
@@ -155,6 +158,25 @@ class ProductsController extends Controller
 
         }
 
-        return view('admin.products.add_edit_product')->with(compact('getCategories','title','message','productsFilters'));
+        return view('admin.products.add_edit_product')->with(compact('getCategories','familyColors','title','message','productsFilters','product'));
+    }
+
+    public function deleteProductVideo($id){
+        //Get Product Video
+        $productVideo = Product::select('product_video')->where('id',$id)->first();
+
+        //Get Path
+        $product_video_path = 'front/video/products';
+
+        //Delete Product Video from folder if exists
+        if(file_exists($product_video_path.$productVideo->product_video)){
+            unlink($product_video_path.$productVideo->product_video);
+        }
+
+        //Delete Product Video from Product Table
+        Product::where('id',$id)->update(['product_video'=>'']);
+
+        $message = 'Product Video Deleted Sccessfully!';
+        return redirect()->back()->with('success_message',$message);
     }
 }
