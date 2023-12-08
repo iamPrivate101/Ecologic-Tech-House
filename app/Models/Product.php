@@ -21,4 +21,12 @@ class Product extends Model
         $productsFilters['networkArray']=array('NTC','Ncell','Worldlink','Subisu','Vianet');  //occasion
         return $productsFilters;
     }
+
+    public function images(){
+        return $this->hasMany('App\Models\ProductsImage');
+    }
+
+    public function attributes(){
+        return $this->hasMany('App\Models\ProductsAttribute');
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ProductsAttribute;
 use App\Models\ProductsImage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
@@ -58,8 +59,9 @@ class ProductsController extends Controller
             $product = new Product();
             $message = 'New Product Added Successfully!';
         }else{
-            $product = Product::find($id);
+            $product = Product::with(['attributes','images'])->find($id);
             $title = 'Update product';
+            // dd($product['attributes']);
             $message = 'Product Updated Successfully!';
         }
 
@@ -205,11 +207,55 @@ class ProductsController extends Controller
                     $image->save();
 
 
+                }
+            }
 
+            //Sort Product Image
+            if($id != ""){
+                if(isset($data['image'])){
+                    foreach ($data['image'] as $key => $image) {
+                        ProductsImage::where(['product_id'=>$id, 'image'=>$image])->update(['image_sort'=>$data['image_sort'][$key]]);
+                    }
+                }
+            }
 
+            //Add Product Attribute
+            foreach ($data['sku'] as $key => $value) {
+                if(!empty($value)){
+                    //SKU already Exists
+                    $countSKU = ProductsAttribute::where('sku',$value)->count();
+                    if($countSKU > 0){
+                        $message = 'SKU Already Exists! Please Add Another SKU';
+                        return redirect()->back()->with('error_message',$message);
+                    }
+
+                    //Size Already Exist Check
+                    $countSize = ProductsAttribute::where(['product_id'=>$product_id,'size'=>$data['size'][$key]])->count();
+                    if($countSize > 0){
+                        $message = 'Size Already Exists! Please Add Another Size';
+                        return redirect()->back()->with('error_message',$message);
+                    }
+
+                    $attribute = new ProductsAttribute;
+                    $attribute->product_id = $product_id;
+                    $attribute->sku = $value;
+                    $attribute->size = $data['size'][$key];
+                    $attribute->price = $data['price'][$key];
+                    $attribute->stock = $data['stock'][$key];
+                    $attribute->status =1;
+                    $attribute->save();
 
                 }
             }
+
+            //Edit Product Attribute
+            foreach ($data['attributeId'] as $akey => $attribute) {
+                if(!empty($attribute)){
+                    ProductsAttribute::where(['id'=>$data['attributeId'[$akey]]])->update(['price'=>$data['price'][$akey], 'stock'=>$data['stock'][$akey]]);
+                }
+            }
+
+
 
             return redirect('admin/products')->with('success_message',$message);
 
@@ -236,5 +282,37 @@ class ProductsController extends Controller
 
         $message = 'Product Video Deleted Sccessfully!';
         return redirect()->back()->with('success_message',$message);
+    }
+
+    public function deleteProductImage($id){
+        //Get Product Image
+        $productImage = ProductsImage::select('image')->where('id',$id)->first();
+
+        //Image Path For Small, Medium, Large
+        $large_image_path = 'front/images/products/large/';
+        $medium_image_path = 'front/images/products/medium/';
+        $small_image_path = 'front/images/products/small/';
+
+        // Delete Product Small Image If exits in small folder
+        if(file_exists($small_image_path.$productImage->image)){
+            unlink($small_image_path.$productImage->image);
+        }
+
+        // Delete Product Medium Image If exits in medium folder
+        if(file_exists($medium_image_path.$productImage->image)){
+            unlink($medium_image_path.$productImage->image);
+        }
+
+        // Delete Product Large Image If exits in large folder
+        if(file_exists($large_image_path.$productImage->image)){
+            unlink($large_image_path.$productImage->image);
+        }
+
+        //Delete Product Image From productsImage table
+        ProductsImage::where('id',$id)->delete();
+
+        $message = "Product Image Deleted Successfully!";
+        return redirect()->back()->with('success_message',$message);
+
     }
 }

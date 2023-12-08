@@ -170,5 +170,32 @@ $(document).ready(function () {
             })
         });
 
+        //Add Product Attribute
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = '<div><div class="field_wrapper mt-2"><div class="form-row"><div class="col-md-3"><input type="text" name="size[]" id="size" class="form-control" placeholder="Size" /></div><div class="col-md-3"><input type="text" name="sku[]" id="sku" class="form-control" placeholder="SKU" /></div><div class="col-md-3"><input type="text" name="price[]" id="price" class="form-control" placeholder="Price" /></div><div class="col-md-2"><input type="text" name="stock[]" id="stock" class="form-control" placeholder="Stock" /></div><a href="javascript:void(0);" class="remove_button" style="text-decoration: none;"><i class="fas fa-times fa-lg"></i></a></div></div></div>';
+
+
+        var x = 1; //Initial field counter is 1
+
+
+        // Once add button is clicked
+        $(addButton).click(function(){
+            //Check maximum number of input fields
+            if(x < maxField){
+                x++; //Increase field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }else{
+                alert('A maximum of '+maxField+' fields are allowed to be added. ');
+            }
+        });
+
+        // Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e){
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrease field counter
+        });
 
 });

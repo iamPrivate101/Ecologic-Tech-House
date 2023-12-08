@@ -8,6 +8,7 @@
 
     <title>Admin | Version 1 </title>
 
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -20,6 +21,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ url('admin/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ url('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    {{-- Custom Css --}}
+    <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">

@@ -66,7 +66,6 @@
                                 <span class="info-box-text">Categories</span>
                                 <span class="info-box-number">
                                     {{ $count_category }}
-                                    <small>category</small>
                                 </span>
                             </div>
                             <!-- /.info-box-content -->
