@@ -91,6 +91,7 @@
                              </p>
                          </a>
                      </li>
+                @endif
 
 
 
@@ -135,7 +136,6 @@
 
                          </ul>
                      </li>
-                 @endif
 
 
                  @if (Session::get('page') == 'categories' || Session::get('page') == 'products')

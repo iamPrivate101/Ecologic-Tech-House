@@ -170,7 +170,7 @@ $(document).ready(function () {
             })
         });
 
-        //Add Product Attribute
+        //Add Product Attribute Dynamic Form
         var maxField = 10; //Input fields increment limitation
         var addButton = $('.add_button'); //Add button selector
         var wrapper = $('.field_wrapper'); //Input field wrapper
@@ -197,5 +197,33 @@ $(document).ready(function () {
             $(this).parent('div').remove(); //Remove field html
             x--; //Decrease field counter
         });
+
+
+        //update Attribute Status for toggele on off button
+        $(document).on("click", ".updateAttributeStatus", function () {
+            var status = $(this).children("i").attr("status");
+            var attribute_id = $(this).attr("attribute_id");
+            // alert(attribute_id);
+            // alert(status);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: '/admin/update-attribute-status',
+                data: { status: status, attribute_id: attribute_id },
+                success: function (resp) {
+                    if (resp['status'] == 0) {
+                        $("#attribute-" + attribute_id).html("<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i> ");
+                    } else {
+                        $("#attribute-" + attribute_id).html("<i class='fas fa-toggle-on'  status='Active'></i> ");
+                    }
+
+                }, error: function () {
+                    alert("Error");
+                }
+            })
+        });
+
 
 });

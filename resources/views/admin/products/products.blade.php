@@ -98,7 +98,7 @@
                                                                 class="fas fa-edit"></i></a>
                                                         &nbsp;&nbsp;
 
-                                                        <a style="color:#3f6ed3" class="confirmDelete" name="Product                                                        title="Delete Product="javascript:void(0)"
+                                                        <a style="color:#3f6ed3" class="confirmDelete" name="Product" title="Delete Product" href="javascript:void(0)"
                                                             record="product" record_id="{{ $product['id'] }}"><i
                                                                 class="fas fa-trash"></i></a>
 

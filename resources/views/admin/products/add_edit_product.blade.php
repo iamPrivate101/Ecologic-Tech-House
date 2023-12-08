@@ -293,7 +293,28 @@
                                                         <td>
                                                             <input style="width: 100px" type="number" name="stock" value="{{ $attribute['stock'] }}">
                                                         </td>
-                                                        <td></td>
+                                                        <td>
+                                                            @if ($attribute['status'] == 1)
+                                                            <a style="color:#3f6ed3" class="updateAttributeStatus"
+                                                                id="attribute-{{ $attribute['id'] }}"
+                                                                attribute_id="{{ $attribute['id'] }}"
+                                                                href="javascript:void(0)">
+                                                                <i class="fas fa-toggle-on" status="Active"></i>
+                                                            </a>
+                                                        @else
+                                                            <a class="updateAttributeStatus"
+                                                                id="attribute-{{ $attribute['id'] }}"
+                                                                attribute_id="{{ $attribute['id'] }}" style="color: gray"
+                                                                href="javascript:void(0)">
+                                                                <i class="fas fa-toggle-off" status="Inactive"></i>
+                                                            </a>
+                                                        @endif
+                                                        &nbsp;&nbsp;
+
+                                                        <a style="color:#3f6ed3" class="confirmDelete" name="Attribute" title="Delete Attribute" href="javascript:void(0)"
+                                                            record="attribute" record_id="{{ $attribute['id'] }}"><i
+                                                                class="fas fa-trash"></i></a>
+                                                        </td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
