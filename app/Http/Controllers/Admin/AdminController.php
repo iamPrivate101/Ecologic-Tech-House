@@ -293,6 +293,9 @@ class AdminController extends Controller
 
             //add new roles for subadmin dynamically
             foreach ($data as $key => $value) {
+                echo '<pre>';
+                print_r($key);
+                print_r($value);
                 if (isset($value['view'])) {
                     $view = $value['view'];
                 } else {
@@ -308,18 +311,18 @@ class AdminController extends Controller
                 } else {
                     $full = 0;
                 }
+
+                if($key != "_token" && $key != "subadmin_id"){
+                    $role = new AdminsRole;
+                    $role->subadmin_id = $id;
+                    $role->module = $key;
+                    $role->view_access = $view;
+                    $role->edit_access = $edit;
+                    $role->full_access = $full;
+                    $role->save();
+                }
             }
 
-
-
-            $role = new AdminsRole;
-
-            $role->subadmin_id = $id;
-            $role->module = $key;
-            $role->view_access = $view;
-            $role->edit_access = $edit;
-            $role->full_access = $full;
-            $role->save();
 
             $message = "Sub-Admin Roles & Permission Updated Sucessfully! ";
             return redirect()->back()->with('success_message', $message);

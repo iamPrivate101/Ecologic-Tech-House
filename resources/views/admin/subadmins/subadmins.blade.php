@@ -57,9 +57,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($subadmins as $subadmin)
+                                        @foreach ($subadmins as $key => $subadmin)
                                             <tr>
-                                                <td>{{ $subadmin->id }}</td>
+                                                <td>{{ $key+1 }}</td>
                                                 <td>{{ $subadmin->name }}</td>
                                                 <td>{{ $subadmin->email }}</td>
                                                 <td>{{ $subadmin->mobile }}</td>

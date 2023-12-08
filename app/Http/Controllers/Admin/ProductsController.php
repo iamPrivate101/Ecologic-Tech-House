@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\AdminsRole;
 use Illuminate\Http\Request;
+use App\Models\ProductsImage;
+use App\Models\ProductsAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\ProductsAttribute;
-use App\Models\ProductsImage;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 
@@ -20,8 +22,21 @@ class ProductsController extends Controller
 
         $title = 'Products';
         $products = Product::with('category')->get()->toArray();
-        // dd($products);
-        return view('admin.products.products')->with(compact('products'));
+
+         //Set Admin/SubAdmins Permissions for Products
+         $productsModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->count();
+         $productsModule = array();
+         if (Auth::guard('admin')->user()->type == 'admin') {
+             $productsModule['view_access'] = 1;
+             $productsModule['edit_access'] = 1;
+             $productsModule['full_access'] = 1;
+         } else if ($productsModuleCount == 0) {
+             $message = "This Feature is Restricted For You";
+             return redirect('admin/dashboard')->with('error_message', $message);
+         } else {
+             $productsModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first()->toArray();
+         }
+        return view('admin.products.products')->with(compact('products','productsModule'));
     }
 
     public function updateProductStatus(Request $request)
@@ -47,6 +62,26 @@ class ProductsController extends Controller
     }
 
     public function addEditProduct(Request $request, $id=null){
+
+        //Set Admin/SubAdmins Permissions for Products
+        $categoriesModuleCount = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->count();
+        $categoriesModule = array();
+        if (Auth::guard('admin')->user()->type == 'admin') {
+            $categoriesModule['view_access'] = 1;
+            $categoriesModule['edit_access'] = 1;
+            $categoriesModule['full_access'] = 1;
+        } else if ($categoriesModuleCount == 0) {
+            $message = "This Feature is Restricted For You";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        } else {
+            $categoriesModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->first()->toArray();
+        }
+
+        if ($categoriesModule['edit_access'] != 1 || $categoriesModule['full_access'] != 1) {
+            $message = "This Feature is Restricted For You";
+            return redirect('admin/dashboard')->with('error_message', $message);
+        }
+
         //Get Categories and their sub categories
         $getCategories = Category::getCategories();
         $familyColors = Color::colors();
