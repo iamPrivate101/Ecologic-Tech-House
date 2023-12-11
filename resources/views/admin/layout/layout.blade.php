@@ -89,6 +89,7 @@
             $("#cmspages").DataTable();
             $("#subadmins").DataTable();
             $("#categories").DataTable();
+            $("#brands").DataTable();
             $("#products").DataTable();
         });
     </script>

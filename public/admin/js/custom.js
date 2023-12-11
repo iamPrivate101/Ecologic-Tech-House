@@ -226,4 +226,31 @@ $(document).ready(function () {
         });
 
 
+        //update Brand Status for toggele on off button
+        $(document).on("click", ".updateBrandStatus", function () {
+            var status = $(this).children("i").attr("status");
+            var brand_id = $(this).attr("brand_id");
+            // alert(brand_id);
+            // alert(status);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                url: '/admin/update-brand-status',
+                data: { status: status, brand_id: brand_id },
+                success: function (resp) {
+                    if (resp['status'] == 0) {
+                        $("#brand-" + brand_id).html("<i class='fas fa-toggle-off' style='color:grey' status='Inactive'></i> ");
+                    } else {
+                        $("#brand-" + brand_id).html("<i class='fas fa-toggle-on'  status='Active'></i> ");
+                    }
+
+                }, error: function () {
+                    alert("Error");
+                }
+            })
+        });
+
+
 });

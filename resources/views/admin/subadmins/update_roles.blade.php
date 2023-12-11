@@ -93,6 +93,7 @@
                                                     @php $fullCMSPages ="" @endphp
                                                 @endif
                                             @endif
+
                                             @if ($role['module'] == 'categories')
                                                 @if ($role['view_access'] == 1)
                                                     @php $viewCategories ="checked" @endphp
@@ -110,6 +111,25 @@
                                                     @php $fullCategories ="" @endphp
                                                 @endif
                                             @endif
+
+                                            @if ($role['module'] == 'brands')
+                                                @if ($role['view_access'] == 1)
+                                                    @php $viewBrands ="checked" @endphp
+                                                @else
+                                                    @php $viewBrands ="" @endphp
+                                                @endif
+                                                @if ($role['edit_access'] == 1)
+                                                    @php $editBrands ="checked" @endphp
+                                                @else
+                                                    @php $editBrands ="" @endphp
+                                                @endif
+                                                @if ($role['full_access'] == 1)
+                                                    @php $fullBrands ="checked" @endphp
+                                                @else
+                                                    @php $fullBrands ="" @endphp
+                                                @endif
+                                            @endif
+
                                             @if ($role['module'] == 'products')
                                                 @if ($role['view_access'] == 1)
                                                     @php $viewProducts ="checked" @endphp
@@ -127,6 +147,7 @@
                                                     @php $fullProducts ="" @endphp
                                                 @endif
                                             @endif
+
                                         @endforeach
                                     @endif
 
@@ -162,6 +183,24 @@
                                             &nbsp;&nbsp;
                                             <input type="checkbox" name="categories[full]" value="1"
                                             @if (isset($fullCategories)) {{ $fullCategories }} @endif>
+                                            &nbsp;&nbsp; Full
+                                            Access
+                                            &nbsp;&nbsp;
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="brands">Brands: &nbsp;&nbsp;</label>
+                                            <input type="checkbox" name="brands[view]" value="1"
+                                                @if (isset($viewBrands)) {{ $viewBrands }} @endif>
+                                            &nbsp;&nbsp;View Access
+                                            &nbsp;&nbsp;
+                                            <input type="checkbox" name="brands[edit]" value="1"
+                                            @if (isset($editBrands)) {{ $editBrands }} @endif>
+                                            &nbsp;&nbsp; Edit
+                                            Access
+                                            &nbsp;&nbsp;
+                                            <input type="checkbox" name="brands[full]" value="1"
+                                            @if (isset($fullBrands)) {{ $fullBrands }} @endif>
                                             &nbsp;&nbsp; Full
                                             Access
                                             &nbsp;&nbsp;

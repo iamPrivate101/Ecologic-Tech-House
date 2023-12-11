@@ -321,6 +321,8 @@ class AdminController extends Controller
                     $role->full_access = $full;
                     $role->save();
                 }
+
+                // AdminsRole::where('subadmin_id',$id)->insert(['subadmin_id'=>$id, 'module'=>$key, 'view_access'=>$view, 'edit_access'=>$edit, 'full_access'=>$full ]);
             }
 
 

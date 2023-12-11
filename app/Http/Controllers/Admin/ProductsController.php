@@ -11,6 +11,7 @@ use App\Models\ProductsImage;
 use App\Models\ProductsAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
@@ -86,6 +87,9 @@ class ProductsController extends Controller
         $getCategories = Category::getCategories();
         $familyColors = Color::colors();
 
+        //Get Brands
+        $getBrands = Brand::where('status',1)->get()->toArray();
+
         //Get Product Filters
         $productsFilters = Product::productsFilters();
 
@@ -158,6 +162,7 @@ class ProductsController extends Controller
             }
 
             $product->category_id = $data['category_id'];
+            $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
@@ -284,9 +289,11 @@ class ProductsController extends Controller
             }
 
             //Edit Product Attribute
-            foreach ($data['attributeId'] as $akey => $attribute) {
-                if(!empty($attribute)){
-                    ProductsAttribute::where(['id'=>$data['attributeId'[$akey]]])->update(['price'=>$data['price'][$akey], 'stock'=>$data['stock'][$akey]]);
+            if(isset($data['attributeId'])){
+                foreach ($data['attributeId'] as $akey => $attribute) {
+                    if(!empty($attribute)){
+                        ProductsAttribute::where(['id'=>$data['attributeId'[$akey]]])->update(['price'=>$data['price'][$akey], 'stock'=>$data['stock'][$akey]]);
+                    }
                 }
             }
 
@@ -297,7 +304,7 @@ class ProductsController extends Controller
 
         }
 
-        return view('admin.products.add_edit_product')->with(compact('getCategories','familyColors','title','message','productsFilters','product'));
+        return view('admin.products.add_edit_product')->with(compact('getCategories','familyColors','title','message','productsFilters','product','getBrands'));
     }
 
     public function deleteProductVideo($id){

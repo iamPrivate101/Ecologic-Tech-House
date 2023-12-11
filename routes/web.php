@@ -64,6 +64,17 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('update-attribute-status','ProductsController@updateAttributeStatus');
         Route::get('delete-attribute/{id?}','ProductsController@deleteAttribute');
 
+        //Brands
+        Route::get('brands','BrandController@brands');
+        Route::post('update-brand-status','BrandController@updateBrandStatus');
+        Route::get('delete-brand/{id?}','BrandController@deleteBrand');
+        Route::match(['get','post'],'add-edit-brand/{id?}','BrandController@addEditBrand');
+        Route::get('delete-brand-image/{id?}','BrandController@deleteBrandImage');
+        Route::get('delete-brand-logo/{id?}','BrandController@deleteBrandLogo');
+
+
+
+
 
 
 
