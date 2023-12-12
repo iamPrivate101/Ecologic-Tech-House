@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CmsController;
+use App\Http\Controllers\Admin\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,10 +50,14 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::match(['get','post'],'add-edit-category/{id?}','CategoryController@addEditCategory');
 
         //Products
-        Route::get('products','ProductsController@products');
+        // Route::get('products','ProductsController@products');
+        //new style to route
+        Route::get('products',[ProductsController::class,'products']);
         Route::post('update-product-status','ProductsController@updateProductStatus');
         Route::get('delete-product/{id?}','ProductsController@deleteProduct');
-        Route::match(['get','post'],'add-edit-product/{id?}','ProductsController@addEditProduct');
+        // Route::match(['get','post'],'add-edit-product/{id?}','ProductsController@addEditProduct');
+        //new way
+        Route::match(['get','post'],'add-edit-product/{id?}',[ProductsController::class,'addEditProduct']);
 
         //Product Images
         Route::get('delete-product-image/{id?}','ProductsController@deleteProductImage');
@@ -71,6 +76,16 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::match(['get','post'],'add-edit-brand/{id?}','BrandController@addEditBrand');
         Route::get('delete-brand-image/{id?}','BrandController@deleteBrandImage');
         Route::get('delete-brand-logo/{id?}','BrandController@deleteBrandLogo');
+
+        //Banners
+        Route::get('banners','BannerController@banners');
+        Route::post('update-banner-status','BannerController@updateBannerStatus');
+        Route::get('delete-banner/{id?}','BannerController@deleteBanner');
+        Route::match(['get','post'],'add-edit-banner/{id?}','BannerController@addEditBanner');
+
+
+
+
 
 
 

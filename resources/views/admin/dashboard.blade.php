@@ -60,14 +60,16 @@
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tasks"></i></span>
 
+                            <a style="color: #fff;" href="{{ url('admin/categories') }}">
                             <div class="info-box-content">
                                 <span class="info-box-text">Categories</span>
                                 <span class="info-box-number">
-                                    {{ $count_category }}
+                                    {{ $categoriesCount }}
                                 </span>
                             </div>
+                        </a>
                             <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->
@@ -75,12 +77,14 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-th-list"></i></span>
 
+                            <a style="color: #fff;" href="{{ url('admin/brands') }}">
                             <div class="info-box-content">
-                                <span class="info-box-text">Products</span>
-                                <span class="info-box-number">{{ $count_product }}</span>
+                                <span class="info-box-text">Brands</span>
+                                <span class="info-box-number">{{ $brandCount }}</span>
                             </div>
+                            </a>
                             <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->
@@ -94,10 +98,12 @@
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
+                            <a style="color: #fff;" href="{{ url('admin/products') }}">
                             <div class="info-box-content">
-                                <span class="info-box-text">Sales</span>
-                                <span class="info-box-number">760</span>
+                                <span class="info-box-text">Products</span>
+                                <span class="info-box-number">{{ $productCount }}</span>
                             </div>
+                            </a>
                             <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->
@@ -107,10 +113,12 @@
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
+                            <a style="color: #fff;" href="{{ url('admin/subadmins') }}">
                             <div class="info-box-content">
                                 <span class="info-box-text">Sub Admin</span>
-                                <span class="info-box-number">{{ $count_subadmin }}</span>
+                                <span class="info-box-number">{{ $userCount }}</span>
                             </div>
+                            </a>
                             <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->

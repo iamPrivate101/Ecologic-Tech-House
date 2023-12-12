@@ -91,6 +91,7 @@
             $("#categories").DataTable();
             $("#brands").DataTable();
             $("#products").DataTable();
+            $("#banners").DataTable();
         });
     </script>
 
