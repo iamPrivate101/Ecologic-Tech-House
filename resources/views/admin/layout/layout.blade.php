@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>Admin | Version 1 </title>
+    <title>Ecologic Tech House | Admin   </title>
 
 
     <!-- Google Font: Source Sans Pro -->

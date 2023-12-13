@@ -49,10 +49,10 @@
                                         <tr>
                                             <th>SN</th>
                                             <th>Product Name</th>
-                                            <th>Product Code</th>
-                                            <th>Product Color</th>
-                                            <th>Category</th>
-                                            <th>Parent Category</th>
+                                            <th class="d-none d-sm-table-cell">Product Code</th>
+                                            <th class="d-none d-sm-table-cell">Product Color</th>
+                                            <th class="d-none d-sm-table-cell">Category</th>
+                                            <th class="d-none d-sm-table-cell">Parent Category</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -60,15 +60,15 @@
                                         @foreach ($products as $key => $product)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $product['product_name'] }}</td>
-                                                <td>{{ $product['product_code'] }}</td>
-                                                <td>{{ $product['product_color'] }}</td>
-                                                <td>
+                                                <td class="text-wrap">{{ $product['product_name'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $product['product_code'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $product['product_color'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">
                                                     @if (isset($product['category']['category_name']))
                                                         {{ $product['category']['category_name'] }}
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="d-none d-sm-table-cell text-wrap">
                                                     @if (isset($product['category']['parentcategory']['category_name']))
                                                         {{ $product['category']['parentcategory']['category_name'] }}
                                                     @endif

@@ -12,7 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v2</li>
+                            <li class="breadcrumb-item active">CMS Pages</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -51,8 +51,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Title</th>
-                                            <th>URL</th>
-                                            <th>Created On</th>
+                                            <th class="d-none d-sm-table-cell">URL</th>
+                                            <th class="d-none d-sm-table-cell">Created On</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,8 +61,8 @@
                                             <tr>
                                                 <td>{{ $page['id'] }}</td>
                                                 <td>{{ $page['title'] }}</td>
-                                                <td>{{ $page['url'] }}</td>
-                                                <td> {{ date('F j, Y, g:i a',strtotime($page['created_at'])) }} </td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $page['url'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap"> {{ date('F j, Y, g:i a',strtotime($page['created_at'])) }} </td>
                                                 <td>
                                                     @if($pagesModule['edit_access'] == 1 || $pagesModule['full_access'] == 1 )
                                                         @if ($page['status'] == 1)
@@ -96,15 +96,6 @@
                                         @endforeach
 
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Title</th>
-                                            <th>URL</th>
-                                            <th>Created On</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->

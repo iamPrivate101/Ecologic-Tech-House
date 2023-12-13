@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ url('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ url('admin/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
+
 </head>
 
 <body class="hold-transition login-page">
@@ -22,7 +24,9 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Ecologic</b>Store</a>
+                <a href="/" >
+                <img class="img-fluid" style="width:100%" src="{{ asset('admin/images/ecologic.png') }}" alt="">
+                </a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Admin login </p>

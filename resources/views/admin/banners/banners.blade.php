@@ -51,12 +51,12 @@
                                         <tr>
                                             <th>SN</th>
                                             <th>Image</th>
-                                            <th>Type</th>
-                                            <th>Link</th>
-                                            <th>Title</th>
-                                            <th>Alt</th>
-                                            <th>Sort</th>
-                                            <th>Created On</th>
+                                            <th class="d-none d-sm-table-cell">Type</th>
+                                            <th class="d-none d-sm-table-cell">Link</th>
+                                            <th class="d-none d-sm-table-cell">Title</th>
+                                            <th class="d-none d-sm-table-cell">Alt</th>
+                                            <th class="d-none d-sm-table-cell">Sort</th>
+                                            <th class="d-none d-sm-table-cell">Created On</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -66,15 +66,15 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
                                                     <a href="{{ url('front/images/banners/'.$banner['image']) }}" target="_blank">
-                                                    <img style="width: 150px" src="{{ asset('front/images/banners/'.$banner['image']) }}" alt="">
+                                                    <img style="width: 120px" src="{{ asset('front/images/banners/'.$banner['image']) }}" alt="">
                                                     </a>
                                                 </td>
-                                                <td>{{ $banner['type'] }}</td>
-                                                <td>{{ $banner['link'] }}</td>
-                                                <td>{{ $banner['title'] }}</td>
-                                                <td>{{ $banner['alt'] }}</td>
-                                                <td>{{ $banner['sort'] }}</td>
-                                                <td> {{ date('F j, Y, g:i a', strtotime($banner['created_at'])) }} </td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $banner['type'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $banner['link'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $banner['title'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $banner['alt'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $banner['sort'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap"> {{ date('F j, Y, g:i a', strtotime($banner['created_at'])) }} </td>
                                                 <td>
                                                     @if ($bannersModule['edit_access'] == 1 || $bannersModule['full_access'] == 1)
                                                         @if ($banner['status'] == 1)

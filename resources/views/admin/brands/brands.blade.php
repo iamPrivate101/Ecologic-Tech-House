@@ -46,13 +46,14 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                 <div class="table-responsive">
                                 <table id="brands" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>SN</th>
                                             <th>Name</th>
-                                            <th>URL</th>
-                                            <th>Created On</th>
+                                            <th class="d-none d-sm-table-cell">URL</th>
+                                            <th class="d-none d-sm-table-cell">Created On</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -60,9 +61,9 @@
                                         @foreach ($brands as $key => $brand)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $brand['brand_name'] }}</td>
-                                                <td>{{ $brand['url'] }}</td>
-                                                <td> {{ date('F j, Y, g:i a', strtotime($brand['created_at'])) }} </td>
+                                                <td class="text-wrap">{{ $brand['brand_name'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $brand['url'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap"> {{ date('F j, Y, g:i a', strtotime($brand['created_at'])) }} </td>
                                                 <td>
                                                     @if ($brandsModule['edit_access'] == 1 || $brandsModule['full_access'] == 1)
                                                         @if ($brand['status'] == 1)
@@ -104,6 +105,7 @@
                                     </tbody>
 
                                 </table>
+                            </div>
                             </div>
                             <!-- /.card-body -->
                         </div>

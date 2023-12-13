@@ -49,10 +49,10 @@
                                         <tr>
                                             <th>SN</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Mobile</th>
-                                            <th>Type</th>
-                                            <th>Created On</th>
+                                            <th class="d-none d-sm-table-cell">Email</th>
+                                            <th class="d-none d-sm-table-cell">Mobile</th>
+                                            <th class="d-none d-sm-table-cell">Type</th>
+                                            <th class="d-none d-sm-table-cell">Created On</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -60,11 +60,11 @@
                                         @foreach ($subadmins as $key => $subadmin)
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td>{{ $subadmin->name }}</td>
-                                                <td>{{ $subadmin->email }}</td>
-                                                <td>{{ $subadmin->mobile }}</td>
-                                                <td>{{ $subadmin->type }}</td>
-                                                <td> {{ date('F j, Y, g:i a', strtotime($subadmin->created_at)) }} </td>
+                                                <td class="text-wrap">{{ $subadmin->name }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $subadmin->email }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $subadmin->mobile }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $subadmin->type }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap"> {{ date('F j, Y, g:i a', strtotime($subadmin->created_at)) }} </td>
                                                 <td>
                                                     @if ($subadmin->status == 1)
                                                         <a style="color:#3f6ed3" class="updateSubadminStatus"

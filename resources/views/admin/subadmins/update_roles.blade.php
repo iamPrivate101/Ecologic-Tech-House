@@ -130,6 +130,24 @@
                                                 @endif
                                             @endif
 
+                                            @if ($role['module'] == 'banners')
+                                                @if ($role['view_access'] == 1)
+                                                    @php $viewBanners ="checked" @endphp
+                                                @else
+                                                    @php $viewBanners ="" @endphp
+                                                @endif
+                                                @if ($role['edit_access'] == 1)
+                                                    @php $editBanners ="checked" @endphp
+                                                @else
+                                                    @php $editBanners ="" @endphp
+                                                @endif
+                                                @if ($role['full_access'] == 1)
+                                                    @php $fullBanners ="checked" @endphp
+                                                @else
+                                                    @php $fullBanners ="" @endphp
+                                                @endif
+                                            @endif
+
                                             @if ($role['module'] == 'products')
                                                 @if ($role['view_access'] == 1)
                                                     @php $viewProducts ="checked" @endphp
@@ -189,6 +207,24 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
+                                            <label for="banners">Banners: &nbsp;&nbsp;</label>
+                                            <input type="checkbox" name="banners[view]" value="1"
+                                                @if (isset($viewBanners)) {{ $viewBanners }} @endif>
+                                            &nbsp;&nbsp;View Access
+                                            &nbsp;&nbsp;
+                                            <input type="checkbox" name="banners[edit]" value="1"
+                                            @if (isset($editBanners)) {{ $editBanners }} @endif>
+                                            &nbsp;&nbsp; Edit
+                                            Access
+                                            &nbsp;&nbsp;
+                                            <input type="checkbox" name="banners[full]" value="1"
+                                            @if (isset($fullBanners)) {{ $fullBanners }} @endif>
+                                            &nbsp;&nbsp; Full
+                                            Access
+                                            &nbsp;&nbsp;
+                                        </div>
+
+                                        <div class="form-group col-md-6">
                                             <label for="brands">Brands: &nbsp;&nbsp;</label>
                                             <input type="checkbox" name="brands[view]" value="1"
                                                 @if (isset($viewBrands)) {{ $viewBrands }} @endif>
@@ -205,6 +241,7 @@
                                             Access
                                             &nbsp;&nbsp;
                                         </div>
+
 
                                         <div class="form-group col-md-6">
                                             <label for="products">Products: &nbsp;&nbsp;</label>

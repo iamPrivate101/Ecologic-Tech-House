@@ -81,6 +81,19 @@ class AdminController extends Controller
         Session::put('page', 'update-password');
         $data = $request->all();
         if ($request->isMethod('post')) {
+            $rules = [
+                'new_pwd' => ['required','min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/'
+                ],
+            ];
+
+            $customMessages = [
+                'new_pwd.required' => 'New Password Required',
+                'new_pwd.min' => 'Password Must Be 8 Character',
+                'new_pwd.regex' => 'Password Must Contain Upper-Lower Case, Number & Special Character',
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
             //check if the Current Password  is correct
             if (Hash::check($data['current_pwd'], Auth::guard('admin')->user()->password)) {
                 //check if the new password and confirm password is matching

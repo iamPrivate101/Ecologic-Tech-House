@@ -51,9 +51,9 @@
                                         <tr>
                                             <th>SN</th>
                                             <th>Name</th>
-                                            <th>Parent Category</th>
-                                            <th>URL</th>
-                                            <th>Created On</th>
+                                            <th class="d-none d-sm-table-cell">Parent Category</th>
+                                            <th class="d-none d-sm-table-cell">URL</th>
+                                            <th class="d-none d-sm-table-cell">Created On</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,14 +61,14 @@
                                         @foreach ($categories as $key => $category)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $category['category_name'] }}</td>
-                                                <td>
+                                                <td class="text-wrap">{{ $category['category_name'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap">
                                                     @if (isset($category['parentcategory']['category_name']))
                                                         {{ $category['parentcategory']['category_name'] }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $category['url'] }}</td>
-                                                <td> {{ date('F j, Y, g:i a', strtotime($category['created_at'])) }} </td>
+                                                <td class="d-none d-sm-table-cell text-wrap">{{ $category['url'] }}</td>
+                                                <td class="d-none d-sm-table-cell text-wrap"> {{ date('F j, Y, g:i a', strtotime($category['created_at'])) }} </td>
                                                 <td>
                                                     @if ($categoriesModule['edit_access'] == 1 || $categoriesModule['full_access'] == 1)
                                                         @if ($category['status'] == 1)
