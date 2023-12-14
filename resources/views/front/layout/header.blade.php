@@ -1,3 +1,10 @@
+<?php
+use App\Models\Category;
+
+//Get categories and subcategory
+$categories = Category::getCategories();
+// print_r($categories);die;
+?>
 <header class="header--style-1">
     <!--====== Nav 1 ======-->
     <nav class="primary-nav primary-nav-wrapper--border">
@@ -71,8 +78,9 @@
         <div class="container">
             <!--====== Secondary Nav ======-->
             <div class="secondary-nav">
+
                 <!--====== Dropdown Main plugin ======-->
-                <div class="menu-init" id="navigation1">
+                <?php /* <div class="menu-init" id="navigation1">
                     <!-- <button class="btn btn--icon toggle-mega-text toggle-button" type="button">M</button> -->
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
@@ -783,7 +791,8 @@
                         <!--====== End - List ======-->
                     </div>
                     <!--====== End - Menu ======-->
-                </div>
+                </div>  */?>
+
                 <!--====== End - Dropdown Main plugin ======-->
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation2">
@@ -797,129 +806,38 @@
                             <li>
                                 <a href="shop-side-version-2.html">NEW ARRIVALS</a>
                             </li>
+                            @foreach ($categories as $category)
                             <li class="has-dropdown">
-                                <a>CLOTHING<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+                                <a href="{{ url($category['url']) }}">{{ $category['category_name'] }}<i @if (count($category['subcategories'])) class="fas fa-angle-down u-s-m-l-6" @endif></i></a>
                                 <!--====== Dropdown ======-->
+                                @if (count($category['subcategories']))
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:170px">
+                                    @foreach ($category['subcategories'] as $subcategory)
                                     <li class="has-dropdown has-dropdown--ul-left-100">
-                                        <a href="listing.html">Men<i
-                                                class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
+                                        <a href="{{ url($subcategory['url']) }}">{{ $subcategory['category_name'] }}<i
+                                            @if (count($subcategory['subcategories']))  class="fas fa-angle-down i-state-right u-s-m-l-6" @endif></i></a>
                                         <!--====== Dropdown ======-->
+                                        @if (count($subcategory['subcategories']))
                                         <span class="js-menu-toggle"></span>
                                         <ul style="width:118px">
+                                            @foreach ($subcategory['subcategories'] as $subsubcategory)
                                             <li>
-                                                <a href="listing.html">T-shirts</a>
+                                                <a href="{{ $subsubcategory['url'] }}">{{ $subsubcategory['category_name'] }}</a>
                                             </li>
-                                            <li>
-                                                <a href="listing.html">Shirts</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Jeans</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Shorts</a>
-                                            </li>
+                                            @endforeach
                                         </ul>
+                                        @endif
                                         <!--====== End - Dropdown ======-->
                                     </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-                                        <a href="listing.html">Women<i
-                                                class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-                                        <!--====== Dropdown ======-->
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-                                                <a href="listing.html">Tops</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Dresses</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Shorts</a>
-                                            </li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-                                        <a href="listing.html">Kids<i
-                                                class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-                                        <!--====== Dropdown ======-->
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:118px">
-                                            <li>
-                                                <a href="listing.html">T-shirts</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Shirts</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Shorts</a>
-                                            </li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li>
-                                        <a href="listing.html">Dummy</a>
-                                    </li>
+                                    @endforeach
                                 </ul>
+                                @endif
+
                                 <!--====== End - Dropdown ======-->
                             </li>
-                            <li class="has-dropdown">
-                                <a>ELECTRONICS<i class="fas fa-angle-down u-s-m-l-6"></i></a>
-                                <!--====== Dropdown ======-->
-                                <span class="js-menu-toggle"></span>
-                                <ul style="width:170px">
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-                                        <a href="listing.html">Mobiles<i
-                                                class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-                                        <!--====== Dropdown ======-->
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:118px">
-                                            <li>
-                                                <a href="listing.html">Smartphones</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Accessories</a>
-                                            </li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-                                        <a href="listing.html">Laptops<i
-                                                class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-                                        <!--====== Dropdown ======-->
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-                                                <a href="listing.html">Laptops</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Tablets</a>
-                                            </li>
-                                            <li>
-                                                <a href="listing.html">Accessories</a>
-                                            </li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                </ul>
-                                <!--====== End - Dropdown ======-->
-                            </li>
-                            <li class="has-dropdown">
-                                <a>APPLIANCES<i class="fas fa-angle-down u-s-m-l-6"></i></a>
-                                <!--====== Dropdown ======-->
-                                <span class="js-menu-toggle"></span>
-                                <ul style="width:200px">
-                                    <li>
-                                        <a href="listing.html">Air Conditioners</a>
-                                    </li>
-                                    <li>
-                                        <a href="listing.html">Refrigerators</a>
-                                    </li>
-                                </ul>
-                                <!--====== End - Dropdown ======-->
-                            </li>
+                            @endforeach
+
                             <li>
                                 <a href="listing.html">FEATURED PRODUCTS</a>
                             </li>

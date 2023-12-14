@@ -5,45 +5,22 @@
         <!--====== Primary Slider ======-->
     <div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
         <div class="owl-carousel primary-style-1" id="sitemakers-slider">
-            <div class="sitemakers-slide sitemakers-slide--1" style="background-image: url('{{ asset('front/images/banners/sitemaker-slider-banner-1.png') }}');">
+            @foreach ($homeSliderBanners as $sliderBanner)
+            <div class="sitemakers-slide sitemakers-slide--1" style="background-image: url('{{ asset('front/images/banners/'.$sliderBanner['image']) }}');" alt="{{ $sliderBanner['alt'] }}">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider-content slider-content--animation">
 
-                                <span class="content-span-2 u-c-secondary">10% Off on T-Shirts</span>
+                                <span class="content-span-2 u-c-secondary" style="color:#ff4500 !Important;">{{ $sliderBanner['title'] }}</span>
 
-                                <a class="shop-now-link btn--e-brand" href="shop-side-version-2.html">SHOP NOW</a></div>
+                                <a class="shop-now-link btn--e-brand" href="{{ $sliderBanner['link'] }}">SHOP NOW</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="sitemakers-slide sitemakers-slide--2" style="background-image: url('{{ asset('front/images/banners/sitemaker-slider-banner-2.png') }}');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-content slider-content--animation">
+            @endforeach
 
-                                <span class="content-span-2 u-c-secondary">20% Off on T-Shirts</span>
-
-                                <a class="shop-now-link btn--e-brand" href="shop-side-version-2.html">SHOP NOW</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="sitemakers-slide sitemakers-slide--3" style="background-image: url('{{ asset('front/images/banners/sitemaker-slider-banner-3.png') }}');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-content slider-content--animation">
-
-                                <span class="content-span-2 u-c-secondary">15% Off on Jackets</span>
-
-                                <a class="shop-now-link btn--e-brand" href="shop-side-version-2.html">SHOP NOW</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!--====== End - Primary Slider ======-->
@@ -67,34 +44,17 @@
             <div class="section__content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-5 col-md-5 u-s-m-b-30">
-                            <a class="collection" href="shop-side-version-2.html">
+                        @foreach ($homeFixBanners as $fixBanner )
+                        @if(isset($fixBanner['image']))
+                        <div class="col-lg-6 col-md-6 u-s-m-b-30">
+                            <a class="collection" href="{{ $fixBanner['link'] }}" title="{{ $fixBanner['title'] }}">
                                 <div class="aspect aspect--bg-grey aspect--square">
-                                    <img class="aspect__img collection__img" src="{{ asset('front/images/collection/fix-banner-1.png') }}" alt="">
+                                    <img class="aspect__img collection__img" src="{{ asset('front/images/banners/'.$fixBanner['image']) }}" alt="{{ $fixBanner['alt'] }}">
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-7 col-md-7 u-s-m-b-30">
-                            <a class="collection" href="shop-side-version-2.html">
-                                <div class="aspect aspect--bg-grey aspect--1286-890">
-                                    <img class="aspect__img collection__img" src="{{ asset('front/images/collection/fix-banner-2.png') }}" alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-7 col-md-7 u-s-m-b-30">
-                            <a class="collection" href="shop-side-version-2.html">
-                                <div class="aspect aspect--bg-grey aspect--1286-890">
-                                    <img class="aspect__img collection__img" src="{{ asset('front/images/collection/fix-banner-3.png') }}" alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-5 col-md-5 u-s-m-b-30">
-                            <a class="collection" href="shop-side-version-2.html">
-                                <div class="aspect aspect--bg-grey aspect--square">
-                                    <img class="aspect__img collection__img" src="{{ asset('front/images/collection/fix-banner-4.png') }}" alt="">
-                                </div>
-                            </a>
-                        </div>
+                        @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -141,74 +101,32 @@
                             </div>
                             <div class="filter__grid-wrapper u-s-m-t-30">
                                 <div class="row">
+                                    @foreach ($newProducts as $product )
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item newarrivals">
                                         <div class="product-o product-o--hover-on product-o--radius">
                                             <div class="product-o__wrap">
                                                 <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                                <img class="aspect__img" src="{{ asset('front/images/products/medium/'.$product['images'][0]['image']) }}" alt=""></a>
+                                                @else
                                                 <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt=""></a>
+                                                @endif
                                             </div>
                                             <span class="product-o__category">
-                                            <a href="shop-side-version-2.html">Brand Name</a></span>
+                                            <a href="shop-side-version-2.html">@if(!empty($product['brand']['brand_name'])){{ $product['brand']['brand_name'] }} @endif</a></span>
                                             <span class="product-o__name">
-                                            <a href="product-detail.html">Product Name</a></span>
+                                            <a href="product-detail.html">{{ $product['product_name'] }}</a></span>
                                             <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                                                 <span class="product-o__review">(25)</span>
                                             </div>
-                                            <span class="product-o__price">₹900.00
-                                            <span class="product-o__discount">₹1000.00.00</span></span>
+                                            <span class="product-o__price">₹ {{ $product['final_price'] }}
+                                                @if($product['discount_type']!="")
+                                                <span class="product-o__discount">₹{{ $product['product_price'] }}</span></span>
+                                                @endif
                                         </div>
                                     </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item newarrivals">
-                                        <div class="product-o product-o--hover-on product-o--radius">
-                                            <div class="product-o__wrap">
-                                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                                <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt=""></a>
-                                            </div>
-                                            <span class="product-o__category">
-                                            <a href="shop-side-version-2.html">Brand Name</a></span>
-                                            <span class="product-o__name">
-                                            <a href="product-detail.html">Product Name</a></span>
-                                            <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-                                                <span class="product-o__review">(25)</span>
-                                            </div>
-                                            <span class="product-o__price">₹900.00
-                                            <span class="product-o__discount">₹1000.00.00</span></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item newarrivals">
-                                        <div class="product-o product-o--hover-on product-o--radius">
-                                            <div class="product-o__wrap">
-                                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                                <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt=""></a>
-                                            </div>
-                                            <span class="product-o__category">
-                                            <a href="shop-side-version-2.html">Brand Name</a></span>
-                                            <span class="product-o__name">
-                                            <a href="product-detail.html">Product Name</a></span>
-                                            <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                                <span class="product-o__review">(25)</span>
-                                            </div>
-                                            <span class="product-o__price">₹900.00
-                                            <span class="product-o__discount">₹1000.00.00</span></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item newarrivals">
-                                        <div class="product-o product-o--hover-on product-o--radius">
-                                            <div class="product-o__wrap">
-                                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                                <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt=""></a>
-                                            </div>
-                                            <span class="product-o__category">
-                                            <a href="shop-side-version-2.html">Brand Name</a></span>
-                                            <span class="product-o__name">
-                                            <a href="product-detail.html">Product Name</a></span>
-                                            <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                                <span class="product-o__review">(25)</span>
-                                            </div>
-                                            <span class="product-o__price">₹900.00
-                                            <span class="product-o__discount">₹1000.00.00</span></span>
-                                        </div>
-                                    </div>
+                                    @endforeach
+
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item bestsellers">
                                         <div class="product-o product-o--hover-on product-o--radius">
                                             <div class="product-o__wrap">
