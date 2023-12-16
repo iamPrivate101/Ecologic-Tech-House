@@ -39,7 +39,7 @@
                                     <form name="sortProducts" id="sortProducts">
                                         <input type="hidden" name="url" id="url" value="{{ $url }}">
                                         <div class="tool-style__form-wrap">
-                                            <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2"
+                                            <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2 getsort"
                                                     name="sort" id="sort">
                                                     <option selected>Sort By: Newest Items</option>
                                                     <option value="product_latest"
@@ -76,18 +76,13 @@
                                 </div>
                             </div>
                             <div class="shop-p__collection">
-                                <div class="row is-grid-active">
+                                <div class="row is-grid-active" id="appendProducts">
                                     {{-- ajax product listing --}}
                                     @include('front.products.ajax_products_listing')
 
                                 </div>
                             </div>
-                            <div class="u-s-p-y-60 pagination">
-
-                                <!--====== Pagination ======-->
-                                {{ $categoryProducts->links() }}
-                                <!--====== End - Pagination ======-->
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

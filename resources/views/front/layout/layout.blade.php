@@ -64,6 +64,8 @@
     <script src="{{ url('front/js/app.js') }}"></script>
      <!--====== Custom JS ======-->
      <script src="{{ url('front/js/custom.js') }}"></script>
+     <!--====== Filter JS ======-->
+     <script src="{{ url('front/js/filters.js') }}"></script>
     <!--====== Noscript ======-->
     <noscript>
         <div class="app-setting">
