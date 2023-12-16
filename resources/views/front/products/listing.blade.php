@@ -1,5 +1,12 @@
 @extends('front.layout.layout')
 @section('content')
+<style>
+    .pagination nav li{
+        list-style-type: none;
+        float: left;
+        width: 70px;
+    }
+</style>
     <div class="app-content">
         <!--====== Section 1 ======-->
         <div class="u-s-p-y-10">
@@ -50,31 +57,10 @@
 
                                 </div>
                             </div>
-                            <div class="u-s-p-y-60">
+                            <div class="u-s-p-y-60 pagination">
 
                                 <!--====== Pagination ======-->
-                                <ul class="shop-p__pagination">
-                                    <li class="is-active">
-
-                                        <a href="shop-side-version-2.html">1</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">2</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">3</a>
-                                    </li>
-                                    <li>
-
-                                        <a href="shop-side-version-2.html">4</a>
-                                    </li>
-                                    <li>
-
-                                        <a class="fas fa-angle-right" href="shop-side-version-2.html"></a>
-                                    </li>
-                                </ul>
+                                {{ $categoryProducts->links() }}
                                 <!--====== End - Pagination ======-->
                             </div>
                         </div>

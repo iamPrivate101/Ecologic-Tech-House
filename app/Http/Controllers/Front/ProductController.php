@@ -22,7 +22,7 @@ class ProductController extends Controller
 
             //Get Category Adn Their Sub Category Product
             $categoryProducts = Product::with(['brand','images'])->whereIn('category_id',$categoryDetails['catIds'])->where('status',1)
-                ->orderBy('id','DESC')->get()->toArray();
+                ->orderBy('id','DESC')->Paginate(6);
             // dd($categoryProducts);
 
             return view('front.products.listing')->with(compact('categoryDetails', 'categoryProducts') );
