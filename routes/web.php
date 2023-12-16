@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Front\IndexController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,13 @@ Route::get('/', function () {
 
 Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/',[IndexController::class,'index']);
+
+    //Listing / Categories Routes
+    $catUrls = Category::select('url')->where('status',1)->get()->pluck('url');
+    // dd($catUrls);
+    foreach ($catUrls as $key => $url) {
+        Route::get($url, 'ProductController@listing');
+    }
 });
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
