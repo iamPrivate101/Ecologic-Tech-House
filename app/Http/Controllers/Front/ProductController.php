@@ -22,7 +22,7 @@ class ProductController extends Controller
             // dd($categoryDetails);
 
             //Get Category Adn Their Sub Category Product
-            $categoryProducts = Product::with(['brand','images'])->whereIn('category_id',$categoryDetails['catIds'])->where('status',1);
+            $categoryProducts = Product::with(['brand','images'])->whereIn('category_id',$categoryDetails['catIds'])->where('products.status',1);
 
             // dd($categoryProducts);
 
@@ -41,21 +41,35 @@ class ProductController extends Controller
                 }else if($request['sort'] == "discounted_items"){
                     $categoryProducts->where('product_discount','>',0);
                 }else{
-                    $categoryProducts->orderBy('id','DESC');
+                    $categoryProducts->orderBy('products.id','DESC');
                 }
 
             }
 
             //Update Query For Color Filter
-            if(isset($request['sort']) && !empty($request['sort'])){
+            if(isset($request['color']) && !empty($request['color'])){
                 //from the url like --- http://127.0.0.1:8000/laptops?color=Black~Silver&sort=Sort%20By:%20Newest%20Items
                 $colors = explode('~', $request['color']);  //color=Black~Silver
                 $categoryProducts->whereIn('products.family_color',$colors);
             }
 
+            //Update Query for Sizes Filter from ProductAttribute table
+            if(isset($request['size']) && !empty($request['size'])){
+                $sizes = explode('~', $request['size']);
+                $categoryProducts->join('products_attributes','products_attributes.product_id','=','products.id')
+                    ->whereIn('products_attributes.size',$sizes);
+                    // ->groupBy('products_attributes.product_id'); //issue in size filter
+
+            }
+
+            //Update Query for Brand Filter
+            if(isset($request['brand']) && !empty($request['brand'])){
+                $brands = explode('~', $request['brand']);
+                $categoryProducts->whereIn('products.brand_id',$brands);
+            }
 
 
-            $categoryProducts = $categoryProducts->paginate(2);
+            $categoryProducts = $categoryProducts->paginate(1);
 
             if($request->ajax()){
                 return response()->json([
