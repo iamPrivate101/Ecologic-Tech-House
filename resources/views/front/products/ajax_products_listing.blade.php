@@ -55,10 +55,15 @@
 
 <div class="u-s-p-y-60 pagination">
     <!--====== Pagination ======-->
-    @if(isset($requets['sort']))
-        {{ $categoryProducts->appends(['sort'=>$request['sort']])->links() }}
-    @else
-        {{ $categoryProducts->links() }}
-    @endif
+    <?php
+    if(!isset($_GET['color'])){
+        $_GET['color'] = "";
+    }
+    if(!isset($_GET['sort'])){
+        $_GET['sort'] = "";
+    }
+
+    ?>
+        {{ $categoryProducts->appends(['sort'=>$_GET['sort'],'color'=>$_GET['color'] ])->links() }}
     <!--====== End - Pagination ======-->
 </div>

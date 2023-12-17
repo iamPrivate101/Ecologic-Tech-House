@@ -41,7 +41,7 @@
                                         <div class="tool-style__form-wrap">
                                             <div class="u-s-m-b-8"><select class="select-box select-box--transparent-b-2 getsort"
                                                     name="sort" id="sort">
-                                                    <option selected>Sort By: Newest Items</option>
+                                                    <option value="latest" selected >Sort By: Newest Items</option>
                                                     <option value="product_latest"
                                                         @if (isset($_GET['sort']) && !empty($_GET['sort']) && $_GET['sort'] == 'product_latest') selected @endif>
                                                         Sort By: Latest Items
@@ -82,7 +82,7 @@
 
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>

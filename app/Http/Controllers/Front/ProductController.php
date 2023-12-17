@@ -46,7 +46,16 @@ class ProductController extends Controller
 
             }
 
-            $categoryProducts = $categoryProducts->paginate(6);
+            //Update Query For Color Filter
+            if(isset($request['sort']) && !empty($request['sort'])){
+                //from the url like --- http://127.0.0.1:8000/laptops?color=Black~Silver&sort=Sort%20By:%20Newest%20Items
+                $colors = explode('~', $request['color']);  //color=Black~Silver
+                $categoryProducts->whereIn('products.family_color',$colors);
+            }
+
+
+
+            $categoryProducts = $categoryProducts->paginate(2);
 
             if($request->ajax()){
                 return response()->json([

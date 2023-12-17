@@ -1,3 +1,5 @@
+<?php use App\Models\ProductsFilter; ?>
+
 <div class="shop-w-master">
     <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
 
@@ -364,57 +366,31 @@
                         data-toggle="collapse"></span>
                 </div>
                 <div class="shop-w__wrap collapse show" id="s-color">
+                    <?php $getColors = ProductsFilter::getColors($categoryDetails['catIds']) ?>
                     <ul class="shop-w__list gl-scroll">
+                        @foreach ($getColors as $key => $color)
+                        <?php
+                        if(isset($_GET['sort']) && !empty($_GET['sort'])){
+                            $colors = explode('~', $_GET['color']);
+                            if(!empty($colors) && in_array($color,$colors)){
+                                $colorchecked = "checked";
+                            }else{
+                                $colorchecked = "";
+                            }
+                        }else{
+                            $colorchecked = "";
+                        }
+                        ?>
                         <li>
                             <div class="color__check">
-
-                                <input type="checkbox" id="jet">
-
-                                <label class="color__check-label" for="jet"
-                                    style="background-color: #FF0000" title="Red"></label>
-                            </div>Red
+                                <input type="checkbox" id="color{{$key}}" name="color" value="{{ $color }}" class="filterAjax" {{ $colorchecked }}>
+                                <label class="color__check-label" for="color{{ $key }}"
+                                    style="background-color: {{ $color }}" title="{{ $color }}"></label>
+                            </div>{{ $color }}
 
                         </li>
-                        <li>
-                            <div class="color__check">
+                        @endforeach
 
-                                <input type="checkbox" id="folly">
-
-                                <label class="color__check-label" for="folly"
-                                    style="background-color: #0000FF"></label>
-                            </div>Blue
-
-                        </li>
-                        <li>
-                            <div class="color__check">
-
-                                <input type="checkbox" id="yellow">
-
-                                <label class="color__check-label" for="yellow"
-                                    style="background-color: #FFFF00"></label>
-                            </div>Yellow
-
-                        </li>
-                        <li>
-                            <div class="color__check">
-
-                                <input type="checkbox" id="granite-gray">
-
-                                <label class="color__check-label" for="granite-gray"
-                                    style="background-color: #008000"></label>
-                            </div>Green
-
-                        </li>
-                        <li>
-                            <div class="color__check">
-
-                                <input type="checkbox" id="space-cadet">
-
-                                <label class="color__check-label" for="space-cadet"
-                                    style="background-color: #FFA500"></label>
-                            </div>Orange
-
-                        </li>
                     </ul>
                 </div>
             </div>
