@@ -73,7 +73,12 @@
         $_GET['brand'] = "";
     }
 
+    if(!isset($_GET['price'])){
+        $_GET['price'] = "";
+    }
+
     ?>
-        {{ $categoryProducts->appends(['sort'=>$_GET['sort'],'color'=>$_GET['color'], 'size'=>$_GET['size'], 'brand'=>$_GET['brand'] ])->links() }}
+        {{ $categoryProducts->appends(['sort'=>$_GET['sort'],'color'=>$_GET['color'], 'size'=>$_GET['size'],
+             'brand'=>$_GET['brand'], 'price'=>$_GET['price'] ])->links() }}
     <!--====== End - Pagination ======-->
 </div>

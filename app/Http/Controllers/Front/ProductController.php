@@ -68,8 +68,17 @@ class ProductController extends Controller
                 $categoryProducts->whereIn('products.brand_id',$brands);
             }
 
+            //Update Query for Price Filter
+            if(isset($request['price']) && !empty($request['price'])){
+                $request['price'] = str_replace("~","-",$request['price']);
+                $prices = explode('-', $request['price']);
+                // print_r($prices);die;
+                $count = count($prices);
+                $categoryProducts->whereBetween('products.final_price',[$prices[0],$prices[$count-1]]);
+            }
 
-            $categoryProducts = $categoryProducts->paginate(1);
+
+            $categoryProducts = $categoryProducts->paginate(6);
 
             if($request->ajax()){
                 return response()->json([
