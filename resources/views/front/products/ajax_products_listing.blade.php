@@ -33,7 +33,7 @@
             </div>
             <div class="product-m__price">₹
                 {{ $product['final_price'] }}
-                @if($product['discount_type']!="")
+                @if($product['discount_type']!="") 
                 <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
                 @endif
             </div>
@@ -77,8 +77,30 @@
         $_GET['price'] = "";
     }
 
+
+    //dynamic filter add here moore for pagination for new dynamic filter
+    if(!isset($_GET['Laptop'])){
+        $_GET['Laptop'] = "";
+    }
+
+    if(!isset($_GET['Computer'])){
+        $_GET['Computer'] = "";
+    }
+
+    if(!isset($_GET['Mobile'])){
+        $_GET['Mobile'] = "";
+    }
+
+    if(!isset($_GET['Network'])){
+        $_GET['Network'] = "";
+    }
+
     ?>
         {{ $categoryProducts->appends(['sort'=>$_GET['sort'],'color'=>$_GET['color'], 'size'=>$_GET['size'],
-             'brand'=>$_GET['brand'], 'price'=>$_GET['price'] ])->links() }}
+             'brand'=>$_GET['brand'], 'price'=>$_GET['price'],
+             //dynamic filters
+             'Laptop'=>$_GET['Laptop'], 'Computer'=>$_GET['Computer'], 'Mobile'=>$_GET['Mobile'], 'Network'=>$_GET['Network']
+              ])
+             ->links() }}
     <!--====== End - Pagination ======-->
 </div>

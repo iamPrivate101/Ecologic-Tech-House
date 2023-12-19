@@ -374,60 +374,51 @@
                 </div>
             </div>
         </div>
+        <?php $getDynamicFilters = ProductsFilter::getDynamicFilters($categoryDetails['catIds']); ?>
+        @foreach ($getDynamicFilters as $key => $filter )
         <div class="u-s-m-b-30">
             <div class="shop-w shop-w--style">
                 <div class="shop-w__intro-wrap">
-                    <h1 class="shop-w__h">FABRIC</h1>
+                    <h1 class="shop-w__h">{{ ucwords($filter) }}</h1>
 
-                    <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-fabric"
+                    <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-filter{{ $key }}"
                         data-toggle="collapse"></span>
                 </div>
-                <div class="shop-w__wrap collapse" id="s-fabric">
+                <div class="shop-w__wrap collapse" id="s-filter{{ $key }}">
+                    <?php $filterValues = ProductsFilter::selectedFilters($filter, $categoryDetails['catIds']); ?>
+
                     <ul class="shop-w__list gl-scroll">
+                        @foreach ($filterValues as $fkey=>$filterValue )
+                        <?php
+                        $checkFilter = "";
+                        if (isset($_GET[$filter])) {
+                            $explodeFilters = explode('~',$_GET[$filter]);
+                            if(in_array($filterValue,$explodeFilters)){
+                                $checkFilter = "checked";
+                            }
+                        }
+                        ?>
                         <li>
 
                             <!--====== Check Box ======-->
                             <div class="check-box">
 
-                                <input type="checkbox" id="xs">
+                                <input type="checkbox" id="filter{{ $key }}" name="{{ $filter }}" value="{{ $filterValue }}" {{ $checkFilter }} class="filterAjax">
                                 <div class="check-box__state check-box__state--primary">
 
-                                    <label class="check-box__label" for="xs">Cotton</label>
+                                    <label class="check-box__label" for="filter{{ $key }}">{{ $filterValue }}</label>
                                 </div>
                             </div>
                             <!--====== End - Check Box ======-->
                         </li>
-                        <li>
+                        @endforeach
 
-                            <!--====== Check Box ======-->
-                            <div class="check-box">
 
-                                <input type="checkbox" id="small">
-                                <div class="check-box__state check-box__state--primary">
-
-                                    <label class="check-box__label"
-                                        for="small">Polyester</label>
-                                </div>
-                            </div>
-                            <!--====== End - Check Box ======-->
-                        </li>
-                        <li>
-
-                            <!--====== Check Box ======-->
-                            <div class="check-box">
-
-                                <input type="checkbox" id="medium">
-                                <div class="check-box__state check-box__state--primary">
-
-                                    <label class="check-box__label" for="medium">Wool</label>
-                                </div>
-                            </div>
-                            <!--====== End - Check Box ======-->
-                        </li>
 
                     </ul>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </div>

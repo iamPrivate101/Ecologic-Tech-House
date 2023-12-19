@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\CmsController;
-use App\Http\Controllers\Admin\ProductsController;
-use App\Http\Controllers\Front\IndexController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CmsController;
+use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Admin\ProductsController;
 
 
 /*
@@ -22,6 +23,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/',[IndexController::class,'index']);
 
@@ -32,6 +35,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
         Route::get($url, 'ProductController@listing');
     }
 });
+
+Route::get('product/{id?}',[ProductController::class,'detail']);
+
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
     Route::match(['get','post'],'login','AdminController@login');

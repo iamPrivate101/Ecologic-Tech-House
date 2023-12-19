@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ProductsFilter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +78,16 @@ class ProductController extends Controller
                 $categoryProducts->whereBetween('products.final_price',[$prices[0],$prices[$count-1]]);
             }
 
+            //Update Query For Dynamic Filters
+            $filterTypes = ProductsFilter::filterTypes();
+            foreach ($filterTypes as $key => $filter){
+                if($request->$filter){
+                    $explodeFilterVals = explode('~',$request->$filter);
+                    $categoryProducts->whereIn($filter,$explodeFilterVals);
+
+                }
+            }
+
 
             $categoryProducts = $categoryProducts->paginate(6);
 
@@ -91,5 +102,13 @@ class ProductController extends Controller
         }else{
             abort(404);
         }
+    }
+
+    public function detail($id){
+        $productDetails = Product::with(['category','brand','attributes','images'])->find($id)->toArray();
+        // dd($productDetails);
+        $categoryDetails = Category::categoryDetails($productDetails['category']['url']);
+
+        return view('front.products.detail')->with(compact('productDetails','categoryDetails'));
     }
 }
