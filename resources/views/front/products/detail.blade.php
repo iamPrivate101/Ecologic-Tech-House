@@ -54,12 +54,13 @@
 
                             <span class="pd-detail__name">{{ $productDetails['product_name'] }}</span></div>
                         <div>
-                            <div class="pd-detail__inline">
+                            <div class="pd-detail__inline getAttributePrice">
 
-                                <span class="pd-detail__price">₹{{ $productDetails['final_price'] }}</span>
+                                <span class="pd-detail__price" >₹{{ $productDetails['final_price'] }}</span>
 
                                 @if($productDetails['discount_type']!="")
-                                <span class="pd-detail__discount">({{ $productDetails['product_discount'] }}% OFF)</span><del class="pd-detail__del">{{ $productDetails['product_price'] }}</del></div>
+                                <span class="pd-detail__discount">({{ $productDetails['product_discount'] }}% OFF)</span><del class="pd-detail__del">{{ $productDetails['product_price'] }}</del>
+                            </div>
                                 @endif
                         </div>
                         <div class="u-s-m-b-15">
@@ -133,36 +134,16 @@
 
                                     <span class="pd-detail__label u-s-m-b-8">Size:</span>
                                     <div class="pd-detail__size">
+                                        @foreach ($productDetails['attributes'] as $attribute )
                                         <div class="size__radio">
 
-                                            <input type="radio" id="xs" name="size" checked>
+                                            <input type="radio" id="{{ $attribute['size'] }}" name="size" checked value="{{ $attribute['size'] }}" product-id="{{ $attribute['id'] }}" class="getPrice">
 
-                                            <label class="size__radio-label" for="xs">XS</label></div>
-                                        <div class="size__radio">
+                                            <label class="size__radio-label" for="{{ $attribute['size'] }}">{{ $attribute['size'] }}</label>
+                                        </div>
+                                        @endforeach
 
-                                            <input type="radio" id="small" name="size">
 
-                                            <label class="size__radio-label" for="xxl">Small</label></div>
-                                        <div class="size__radio">
-
-                                            <input type="radio" id="medium" name="size">
-
-                                            <label class="size__radio-label" for="medium">Medium</label></div>
-                                        <div class="size__radio">
-
-                                            <input type="radio" id="large" name="size">
-
-                                            <label class="size__radio-label" for="xxl">Large</label></div>
-                                        <div class="size__radio">
-
-                                            <input type="radio" id="xl" name="size">
-
-                                            <label class="size__radio-label" for="xl">XL</label></div>
-                                        <div class="size__radio">
-
-                                            <input type="radio" id="xxl" name="size">
-
-                                            <label class="size__radio-label" for="xxl">XXL</label></div>
                                     </div>
                                 </div>
                                 <div class="pd-detail-inline-2">

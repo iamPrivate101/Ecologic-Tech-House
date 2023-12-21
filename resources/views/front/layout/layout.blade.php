@@ -9,8 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="SiteMakers.in">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="{{ asset('front/images/favicon.png') }}" rel="shortcut icon">
     <title>Ecologic Tech House </title>
+
     <!--====== Google Font ======-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
     <!--====== Vendor Css ======-->
