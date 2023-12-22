@@ -4,10 +4,11 @@
         <div class="product-m__thumb">
             <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{ url('product/'.$product['id']) }}">
                 @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
-                <img class="aspect__img" src="{{ asset('front/images/products/medium/'.$product['images'][0]['image']) }}" alt=""></a>
+                <img class="aspect__img" src="{{ asset('front/images/products/medium/'.$product['images'][0]['image']) }}" alt="">
                 @else
-                <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt=""></a>
+                <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
                 @endif
+            </a>
             <div class="product-m__quick-look">
                 <a class="fas fa-search" data-modal="modal"
                     data-modal-id="#quick-look" data-tooltip="tooltip"
@@ -31,10 +32,10 @@
                     class="far fa-star"></i>
                 <span class="product-m__review">(25)</span>
             </div>
-            <div class="product-m__price">₹
+            <div class="product-m__price">Rs
                 {{ $product['final_price'] }}
                 @if($product['discount_type']!="")
-                <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
+                <span class="product-o__discount">Rs {{ $product['product_price'] }}</span>
                 @endif
             </div>
             <div class="product-m__hover">

@@ -582,6 +582,69 @@
         </div>
     </div>
     <!--====== End - Product Detail Tab ======-->
+
+    <!--====== RElated Products ======-->
+    <div class="u-s-p-b-90">
+
+        <!--====== Section Intro ======-->
+        <div class="section__intro u-s-m-b-46">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            <h1 class="section__heading u-c-secondary u-s-m-b-12">RECOMMENDED PRODUCTS</h1>
+
+                            <span class="section__span u-c-grey">PRODUCTS THAT YOU ALSO LIKE TO BUY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Intro ======-->
+
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="slider-fouc">
+                    <div class="owl-carousel product-slider" data-item="4">
+                        @foreach ($relatedProducts as $product )
+                        <div class="u-s-m-b-30">
+                            <div class="product-o product-o--hover-on">
+                                <div class="product-o__wrap">
+                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{ url('product/'.$product['id']) }}">
+                                        @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                        <img class="aspect__img" src="{{ asset('front/images/products/medium/'.$product['images'][0]['image']) }}" alt="{{ $product['product_name'] }}">
+                                        @else
+                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="{{ $product['product_name'] }}">
+                                        @endif
+                                    </a>
+                                </div>
+                                <span class="product-o__category">
+                                    <a href="{{ url('product/'.$product['id']) }}">{{ $product['brand']['brand_name'] }}</a></span>
+                                <span class="product-o__name">
+
+                                    <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a></span>
+                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+
+                                    <span class="product-o__review">(20)</span></div>
+
+                                <span class="product-o__price">Rs {{ $product['final_price'] }}
+                                    @if($product['discount_type']!="")
+                                    <span class="product-o__discount">Rs{{ $product['product_price'] }}</span>
+                                    @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+    <!--====== End - Section 1 ======-->
+
+    <!--====== End - Product Detail Tab ======-->
     <div class="u-s-p-b-90">
 
         <!--====== Section Intro ======-->
@@ -606,132 +669,34 @@
             <div class="container">
                 <div class="slider-fouc">
                     <div class="owl-carousel product-slider" data-item="4">
+                        @foreach ($recentlyViewedProducts as $product )
                         <div class="u-s-m-b-30">
                             <div class="product-o product-o--hover-on">
                                 <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
+                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{ url('product/'.$product['id']) }}">
+                                        @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                        <img class="aspect__img" src="{{ asset('front/images/products/medium/'.$product['images'][0]['image']) }}" alt="{{ $product['product_name'] }}">
+                                        @else
+                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="{{ $product['product_name'] }}">
+                                        @endif
                                     </a>
                                 </div>
                                 <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
+                                    <a href="{{ url('product/'.$product['id']) }}">{{ $product['brand']['brand_name'] }}</a></span>
                                 <span class="product-o__name">
 
-                                    <a href="product-detail.html">Product Name</a></span>
+                                    <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a></span>
                                 <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 
                                     <span class="product-o__review">(20)</span></div>
 
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
+                                <span class="product-o__price">Rs {{ $product['final_price'] }}
+                                    @if($product['discount_type']!="")
+                                    <span class="product-o__discount">Rs{{ $product['product_price'] }}</span>
+                                    @endif
                             </div>
                         </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{ asset('front/images/product/sitemakers-tshirt.png') }}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
