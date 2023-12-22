@@ -21,7 +21,9 @@ $(document).ready(function(){
                 }else{
                     $(".getAttributePrice").html("<span class='pd-detail__price' >Rs"+ resp['final_price'] +"</span>");
                 }
-            },error:function(){
+            },error:function(xhr, status, error){
+                // console.error("AJAX Error: " + status + " - " + error);
+                // console.log(xhr.responseText); // Log the response text for more details
                 alert("Error");
             }
         })

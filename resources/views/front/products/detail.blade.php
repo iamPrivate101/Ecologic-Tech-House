@@ -137,7 +137,7 @@
                                         @foreach ($productDetails['attributes'] as $attribute )
                                         <div class="size__radio">
 
-                                            <input type="radio" id="{{ $attribute['size'] }}" name="size" checked value="{{ $attribute['size'] }}" product-id="{{ $attribute['id'] }}" class="getPrice">
+                                            <input type="radio" id="{{ $attribute['size'] }}" name="size" checked value="{{ $attribute['size'] }}" product-id="{{ $productDetails['id'] }}" class="getPrice">
 
                                             <label class="size__radio-label" for="{{ $attribute['size'] }}">{{ $attribute['size'] }}</label>
                                         </div>

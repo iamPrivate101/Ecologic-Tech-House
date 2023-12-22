@@ -2,7 +2,7 @@
 <div class="col-lg-4 col-md-6 col-sm-6">
     <div class="product-m">
         <div class="product-m__thumb">
-            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{ url('product/'.$product['id']) }}">
                 @if (isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
                 <img class="aspect__img" src="{{ asset('front/images/products/medium/'.$product['images'][0]['image']) }}" alt=""></a>
                 @else
@@ -20,10 +20,10 @@
         </div>
         <div class="product-m__content">
             <div class="product-m__category">
-                <a href="shop-side-version-2.html">{{ $product['brand']['brand_name'] }}</a>
+                <a href="{{ url('product/'.$product['id']) }}">{{ $product['brand']['brand_name'] }}</a>
             </div>
             <div class="product-m__name">
-                <a href="product-detail.html">{{ $product['product_name'] }}</a>
+                <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a>
             </div>
             <div class="product-m__rating gl-rating-style"><i
                     class="fas fa-star"></i><i class="fas fa-star"></i><i
@@ -33,7 +33,7 @@
             </div>
             <div class="product-m__price">₹
                 {{ $product['final_price'] }}
-                @if($product['discount_type']!="") 
+                @if($product['discount_type']!="")
                 <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
                 @endif
             </div>

@@ -113,7 +113,7 @@ class ProductController extends Controller
     }
 
     public function getAttributePrice(Request $request){
-        if($request->ajax){
+        if($request->ajax()){
             $data = $request->all();
             // echo"<pre>";print_r($data);die;
             $getAttributePrice = Product::getAttributePrice($data['product_id'],$data['size']);

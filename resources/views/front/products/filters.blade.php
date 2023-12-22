@@ -1,4 +1,14 @@
-<?php use App\Models\ProductsFilter; ?>
+<?php use App\Models\ProductsFilter;
+use App\Models\Category;
+
+//Get categories and subcategory
+$categories = Category::getCategories();
+$url = Route::getFacadeRoot()->current()->uri;  //helps to fetch the url entered in brouser
+//Get Category Detail
+$categoryDetails = Category::categoryDetails($url);
+// dd($categoryDetails['categoryDetails']['parentcategory']['category_name'] );
+
+ ?>
 
 <div class="shop-w-master">
     <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
@@ -16,118 +26,49 @@
                 </div>
                 <div class="shop-w__wrap collapse show" id="s-category">
                     <ul class="shop-w__category-list gl-scroll">
+                        @foreach ($categories as $category)
                         <li class="has-list">
-                            <a href="#">Clothing</a>
+                            <a href="#">{{ $category['category_name'] }}</a>
                             <span
                                 class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
+                                @if (count($category['subcategories']))
                             <ul style="display:block">
+                                @foreach ($category['subcategories'] as $subcategory)
                                 <li class="has-list">
 
-                                    <a href="#">Men</a>
-
-                                    <span
-                                        class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">T-Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Jeans</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shorts</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-list">
-
-                                    <a href="#">Women</a>
+                                    <a
+                                    @if (isset($categoryDetails['categoryDetails']['parentcategory']['category_name']) && $categoryDetails['categoryDetails']['parentcategory']['category_name'] == $subcategory['category_name'] )
+                                    style="color: #ff4500"
+                                    @elseif (isset($categoryDetails['categoryDetails']['category_name']) && $categoryDetails['categoryDetails']['category_name'] == $subcategory['category_name'])
+                                    style="color: #ff4500"
+                                    @endif
+                                     href="{{ url($subcategory['url']) }}">{{ $subcategory['category_name'] }}</a>
 
                                     <span
-                                        class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
+                                        class="js-shop-category-span fas @if (count($subcategory['subcategories'])) fa-plus @endif u-s-m-l-6"></span>
+                                    @if (count($subcategory['subcategories']))
                                     <ul>
+                                        @foreach ($subcategory['subcategories'] as $subsubcategory)
                                         <li>
-                                            <a href="#">Tops</a>
+                                            <a
+                                            @if (isset($categoryDetails['categoryDetails']['parentcategory']['category_name']) && $categoryDetails['categoryDetails']['parentcategory']['category_name'] == $subsubcategory['category_name'] )
+                                            style="color: #ff4500"
+                                            @elseif (isset($categoryDetails['categoryDetails']['category_name']) && $categoryDetails['categoryDetails']['category_name'] == $subsubcategory['category_name'])
+                                            style="color: #ff4500"
+                                            @endif
+                                            href="{{ $subsubcategory['url'] }}">{{ $subsubcategory['category_name'] }}</a>
                                         </li>
-                                        <li>
-                                            <a href="#">Dresses</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shorts</a>
-                                        </li>
+                                        @endforeach
+
                                     </ul>
+                                    @endif
                                 </li>
-                                <li class="has-list">
-                                    <a href="#">Kids</a>
-                                    <span
-                                        class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">T-Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shorts</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Dummy</a>
-                                </li>
+                                @endforeach
                             </ul>
+                            @endif
                         </li>
-                        <li class="has-list">
-                            <a href="#">Electronics</a>
-                            <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                            <ul>
-                                <li class="has-list">
-                                    <a href="#">Mobiles</a>
-                                    <span
-                                        class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Smartphones</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Accessories</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Laptops</a>
-                                    <span
-                                        class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Laptops</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Tablets</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Accessories</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-list">
-                            <a href="#">Appliances</a>
-                            <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                            <ul>
-                                <li class="has-list">
-                                    <a href="#">Air Conditioners</a>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Refrigerators</a>
-                                </li>
-                            </ul>
-                        </li>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
@@ -381,10 +322,10 @@
                 <div class="shop-w__intro-wrap">
                     <h1 class="shop-w__h">{{ ucwords($filter) }}</h1>
 
-                    <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-filter{{ $key }}"
+                    <span class="fas fa-minus  shop-w__toggle" data-target="#s-filter{{ $key }}"
                         data-toggle="collapse"></span>
                 </div>
-                <div class="shop-w__wrap collapse" id="s-filter{{ $key }}">
+                <div class="shop-w__wrap collapse show" id="s-filter{{ $key }}">
                     <?php $filterValues = ProductsFilter::selectedFilters($filter, $categoryDetails['catIds']); ?>
 
                     <ul class="shop-w__list gl-scroll">
