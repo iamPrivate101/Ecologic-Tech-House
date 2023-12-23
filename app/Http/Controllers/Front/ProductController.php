@@ -237,4 +237,8 @@ class ProductController extends Controller
 
         }
     }
+
+    public function cart(){
+        return view('front.products.cart');
+    }
 }

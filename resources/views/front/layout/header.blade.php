@@ -949,7 +949,7 @@ $categories = Category::getCategories();
                                             <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO
                                                 CHECKOUT</a>
                                             <a class="mini-link btn--e-transparent-secondary-b-2"
-                                                href="cart.html">VIEW CART</a>
+                                                href="{{ url('/cart') }}">VIEW CART</a>
                                         </div>
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->
