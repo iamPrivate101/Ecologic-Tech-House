@@ -40,6 +40,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
     //Get Product Attribute Price
     Route::post('get-attribute-price',[ProductController::class,'getAttributePrice']);
+
+    //Add To Cart
+    Route::post('add-to-cart',[ProductController::class,'addToCart']);
 });
 
 

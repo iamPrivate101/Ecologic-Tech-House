@@ -57,10 +57,10 @@ $categories = Category::getCategories();
                                 <!--====== End - Dropdown ======-->
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Contact">
-                                <a href="tel:+0900000000"><i class="fas fa-phone-volume"></i></a>
+                                <a href="tel:+977 9843070969"><i class="fas fa-phone-volume"></i></a>
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Mail">
-                                <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a>
+                                <a href="mailto:nimeshmaharjan@gmail.com"><i class="far fa-envelope"></i></a>
                             </li>
                         </ul>
                         <!--====== End - List ======-->

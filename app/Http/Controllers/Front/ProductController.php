@@ -7,6 +7,9 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ProductsFilter;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\ProductsAttribute;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
@@ -168,5 +171,70 @@ class ProductController extends Controller
             return $getAttributePrice;
         }
 
+    }
+
+    public function addToCart(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // print_r($data);die;
+
+            //Check Product Stock
+            $productStock = ProductsAttribute::productStock($data['product_id'], $data['size']);
+            if($data['qty'] > $productStock){
+                $message = "Required Quantity Is Not Available!!!";
+                return response()->json(['status'=>false, 'message'=>$message]);
+            }
+
+            //Check Product Status
+            $productStatus = Product::productStatus($data['product_id']);
+            if($productStatus == 0){
+                $message = "Product Is Not Available!!!";
+                return response()->json(['status'=>false, 'message'=>$message]);
+            }
+
+            //Generate Session Id if not exists
+            if(empty(Session::get('session_id'))){
+                $session_id = Session::getId();
+                Session::put('session_id',$session_id);
+            }else{
+                $session_id = Session::get('session_id');
+            }
+            // echo $session_id;
+
+            //Check Product if Already exists in Cart
+            if(Auth::check()){
+                //User is logged in
+                $user_id = Auth::user()->id;
+                $countProducts = Cart::where(['product_id'=>$data['product_id'],'product_size'=>$data['size'],'user_id'=>$user_id])->count();
+
+
+            }else{
+                //User is not loggeg in
+                $user_id = 0;
+                $countProducts = Cart::where(['product_id'=>$data['product_id'],'product_size'=>$data['size'],'session_id'=>$session_id])->count();
+            }
+
+            if($countProducts > 0){
+                $message = "Products Already Exists In Cart";
+                return response()->json(['status'=>false, 'message'=>$message]);
+            }
+
+            //Save The Product In The Cart
+            $item = new Cart;
+            $item->session_id = $session_id;
+            if(Auth::check()){
+                $item->user_id = Auth::user()->id;
+            }else{
+                $item->user_id = 0;
+            }
+            $item->product_id = $data['product_id'];
+            $item->product_size = $data['size'];
+            $item->product_qty = $data['qty'];
+            $item->save();
+            $message = "Product Added Successfully In Cart";
+            return response()->json(['status'=>true, 'message'=>$message]);
+
+
+        }
     }
 }

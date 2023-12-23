@@ -6,13 +6,13 @@
                     <div class="outer-footer__content u-s-m-b-40">
                         <span class="outer-footer__content-title">Contact Us</span>
                         <div class="outer-footer__text-wrap"><i class="fas fa-home"></i>
-                            <span>SITEMAKERS.IN</span>
+                            <span>ecologictechhouse.com</span>
                         </div>
                         <div class="outer-footer__text-wrap"><i class="fas fa-phone-volume"></i>
-                            <span>(+91) 900 000 000</span>
+                            <span>(+977) 9843070969</span>
                         </div>
                         <div class="outer-footer__text-wrap"><i class="far fa-envelope"></i>
-                            <span>contact@sitemakers.in</span>
+                            <span>ecologictechhouse@gmail.com</span>
                         </div>
                         <div class="outer-footer__social">
                             <ul>
@@ -109,8 +109,8 @@
                 <div class="col-lg-12">
                     <div class="lower-footer__content">
                         <div class="lower-footer__copyright">
-                            <span>Copyright © 2023</span>
-                            <a href="index.html">SiteMakers.in</a>
+                            <span>Copyright © <?php echo date('Y'); ?></span>
+                            <a href="{{ url('/') }}">Ecologic Tech House</a>
                             <span>All Right Reserved</span>
                         </div>
                         <div class="lower-footer__payment">

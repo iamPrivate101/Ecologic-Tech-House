@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ url('front/css/utility.css') }}">
     <!--====== App ======-->
     <link rel="stylesheet" href="{{ url('front/css/app.css') }}">
+    <!--====== Custom css ======-->
+    <link rel="stylesheet" href="{{ url('front/css/custom.css') }}">
 </head>
 
 <body class="config">

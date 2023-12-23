@@ -51,7 +51,10 @@
                     <!--====== Product Right Side Details ======-->
                     <div class="pd-detail">
                         <div>
-
+                            <div class="print-error-msg" style="display: none">
+                            </div>
+                            <div class="print-success-msg" style="display: none">
+                            </div>
                             <span class="pd-detail__name">{{ $productDetails['product_name'] }}</span></div>
                         <div>
                             <div class="pd-detail__inline getAttributePrice">
@@ -108,7 +111,9 @@
                             </ul>
                         </div>
                         <div class="u-s-m-b-15">
-                            <form class="pd-detail__form">
+                            <form name="addToCart" id="addToCart" class="pd-detail__form" action="javascript::">
+                                <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+
                                 @if (count($groupProducts)>0)
                                 <div class="u-s-m-b-15">
 
@@ -132,7 +137,7 @@
                                         @foreach ($productDetails['attributes'] as $attribute )
                                         <div class="size__radio">
 
-                                            <input type="radio" id="{{ $attribute['size'] }}" name="size" checked value="{{ $attribute['size'] }}" product-id="{{ $productDetails['id'] }}" class="getPrice">
+                                            <input type="radio" id="{{ $attribute['size'] }}" name="size"  value="{{ $attribute['size'] }}" product-id="{{ $productDetails['id'] }}" class="getPrice" required>
 
                                             <label class="size__radio-label" for="{{ $attribute['size'] }}">{{ $attribute['size'] }}</label>
                                         </div>
@@ -149,7 +154,7 @@
 
                                             <span class="input-counter__minus fas fa-minus"></span>
 
-                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
+                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000" name="qty">
 
                                             <span class="input-counter__plus fas fa-plus"></span></div>
                                         <!--====== End - Input Counter ======-->

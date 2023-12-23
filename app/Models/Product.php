@@ -70,4 +70,9 @@ class Product extends Model
         return array('product_price'=>$attributePrice['price'], 'final_price'=>$final_price, 'discount'=>$discount, 'discount_percent'=>$discount_percent);
 
     }
+
+    public static function productStatus($product_id){
+        $productStatus = Product::select('status')->where('id',$product_id)->first();
+        return $productStatus->status;
+    }
 }
