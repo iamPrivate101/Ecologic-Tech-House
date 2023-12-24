@@ -43,7 +43,7 @@ $(document).ready(function () {
             type: 'post',
             data: formData, // Fix the typo here
             success: function (resp) {
-                alert(resp['status']);
+                // alert(resp['status']);
                 if(resp['status'] == true){
                     $('.print-success-msg').show();
                     $('.print-success-msg').delay(3000).fadeOut('slow');

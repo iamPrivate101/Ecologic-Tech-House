@@ -30,3 +30,6 @@ category image update unlink issue in front/images/categories
 issue in  product filter size by ajax in #94  Product Controller line no 61   // ->groupBy('products_attributes.product_id'); //issue in size filter
 
 
+
+//add to cart without the product attribute data returns error
+

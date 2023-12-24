@@ -231,7 +231,7 @@ class ProductController extends Controller
             $item->product_size = $data['size'];
             $item->product_qty = $data['qty'];
             $item->save();
-            $message = "Product Added Successfully In Cart";
+            $message = "Product Added Successfully In Cart <a href= '/cart' style='color:#ffffff; text-decoration:underline'>View Cart</a> ";
             return response()->json(['status'=>true, 'message'=>$message]);
 
 
@@ -239,6 +239,8 @@ class ProductController extends Controller
     }
 
     public function cart(){
-        return view('front.products.cart');
+        $getCartItems = Cart::getCartItems();
+        // dd($getCartItems);
+        return view('front.products.cart')->with(compact('getCartItems'));
     }
 }

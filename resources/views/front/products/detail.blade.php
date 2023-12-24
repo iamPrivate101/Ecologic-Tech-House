@@ -63,8 +63,8 @@
 
                                 @if($productDetails['discount_type']!="")
                                 <span class="pd-detail__discount">({{ $productDetails['product_discount'] }}% OFF)</span><del class="pd-detail__del">{{ $productDetails['product_price'] }}</del>
-                            </div>
                                 @endif
+                            </div>
                         </div>
                         <div class="u-s-m-b-15">
                             <div class="pd-detail__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
