@@ -238,9 +238,65 @@ class ProductController extends Controller
         }
     }
 
+    //display cart item
     public function cart(){
         $getCartItems = Cart::getCartItems();
         // dd($getCartItems);
         return view('front.products.cart')->with(compact('getCartItems'));
     }
+
+    // update cart item quantity with the help of ajax
+    public function updateCartItemQty(Request $request){
+        if($request->ajax()){
+            $data = $request->all();
+            // print_r($data);die;
+
+            //Get Cart Details
+            $cartDetails = Cart::find($data['cartid']);
+
+            //Get Available Product Stock
+            $availableStock = ProductsAttribute::select('stock')->where(['product_id'=>$cartDetails['product_id'], 'size'=>$cartDetails['product_size']])->first()->toArray();
+            // echo '<pre>'; print_r($availableStock);die;
+
+            //check if the desire stock from user is available
+            //desire stock is greater than available stock
+            if($data['qty'] > $availableStock['stock']){
+                $getCartItems = Cart::getCartItems();
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'Requested Product Stock Not Available !!! Please Reduce The Number Of Order !!!',
+                    'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                ]);
+            }
+
+            //Check If The Product Size is Available
+            $availableSize = ProductsAttribute::where(['product_id'=>$cartDetails['product_id'], 'size'=>$cartDetails['product_size'], 'status'=>1])->count();
+
+            if($availableSize == 0){
+                $getCartItems = Cart::getCartItems();
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'Requested Product Size Not Available !!! Please Remove & Select Alternative Size !!!',
+                    'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                ]);
+            }
+
+
+            //Update Cart Item Qty
+            Cart::where('id',$data['cartid'])->update(['product_qty'=>$data['qty']]);
+
+            //Get Updated Cart Item
+            $getCartItems = Cart::getCartItems();
+            // dd($getCartItems);
+
+            //Return The Updated Cart Item via Ajax
+            return response()->json([
+                'status'=>true,
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+            ]);
+
+        }
+    }
+
+
 }
