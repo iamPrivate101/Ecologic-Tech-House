@@ -50,6 +50,10 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     //Update Cart Item Quantity
     Route::post('update-cart-item-qty',[ProductController::class,'updateCartItemQty']);
 
+    //Delete Cart Item Quantity
+    Route::post('delete-cart-item',[ProductController::class,'deleteCartItem']);
+
+
 });
 
 

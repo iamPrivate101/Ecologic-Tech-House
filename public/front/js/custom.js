@@ -44,6 +44,8 @@ $(document).ready(function () {
             data: formData, // Fix the typo here
             success: function (resp) {
                 // alert(resp['status']);
+                $(".totalCartItems").html(resp['totalCartItems']);
+
                 if(resp['status'] == true){
                     $('.print-success-msg').show();
                     $('.print-success-msg').delay(3000).fadeOut('slow');
@@ -94,12 +96,39 @@ $(document).ready(function () {
                 if(resp.status == false){
                     alert(resp.message);
                 }
+                $(".totalCartItems").html(resp.totalCartItems);
                 $("#appendCartItems").html(resp.view);
             },error:function(){
                 alert("Error");
             }
         });
     });
+
+    //Delete Cart Item
+    $(document).on('click','.deleteCartItem',function(){
+        var cartid = $(this).data('cartid');
+        //confirmation to delete
+        var result = confirm("Are you sure you want to delete this Cart Item");
+        if(result){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{cartid:cartid},
+                url:'/delete-cart-item',
+                type:'post',
+                success:function(resp){
+                    // alert(resp);
+                    $(".totalCartItems").html(resp.totalCartItems);
+                    $("#appendCartItems").html(resp.view);
+                },error:function(){
+                    alert("Error");
+                }
+
+            });
+        }
+    });
+
 
 
 });

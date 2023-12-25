@@ -231,8 +231,12 @@ class ProductController extends Controller
             $item->product_size = $data['size'];
             $item->product_qty = $data['qty'];
             $item->save();
+
+            //Get Total Cart Item
+            $totalCartItems = totalCartItems();
+
             $message = "Product Added Successfully In Cart <a href= '/cart' style='color:#ffffff; text-decoration:underline'>View Cart</a> ";
-            return response()->json(['status'=>true, 'message'=>$message]);
+            return response()->json(['status'=>true, 'message'=>$message, 'totalCartItems'=>$totalCartItems]);
 
 
         }
@@ -289,9 +293,36 @@ class ProductController extends Controller
             $getCartItems = Cart::getCartItems();
             // dd($getCartItems);
 
+            //Get Total Cart Item
+            $totalCartItems = totalCartItems();
+
             //Return The Updated Cart Item via Ajax
             return response()->json([
                 'status'=>true,
+                'totalCartItems' => $totalCartItems,
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+            ]);
+
+        }
+    }
+
+    public function deleteCartItem(Request $request) {
+        if($request->ajax()){
+            $data = $request->all();
+            Cart::where('id',$data['cartid'])->delete();
+
+
+            //Get Updated Cart Item
+            $getCartItems = Cart::getCartItems();
+            // dd($getCartItems);
+
+            //Get Total Cart Item
+            $totalCartItems = totalCartItems();
+
+            //Return The Updated Cart Item via Ajax
+            return response()->json([
+                'status'=>true,
+                'totalCartItems' => $totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
             ]);
 

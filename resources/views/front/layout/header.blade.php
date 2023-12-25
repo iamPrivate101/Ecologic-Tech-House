@@ -1,6 +1,9 @@
 <?php
 use App\Models\Category;
 
+//calling form helper  "app\Helpers\herper.php"
+$totalCartItems = totalCartItems();
+
 //Get categories and subcategory
 $categories = Category::getCategories();
 // print_r($categories);die;
@@ -854,7 +857,7 @@ $categories = Category::getCategories();
                     <button
                         class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop"
                         type="button"></button>
-                    <span class="total-item-round">2</span>
+                    <span class="total-item-round totalCartItems">{{ $totalCartItems }}</span>
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
                         <span class="ah-close">✕ Close</span>
@@ -867,8 +870,8 @@ $categories = Category::getCategories();
                                 <a href="wishlist.html"><i class="far fa-heart"></i></a>
                             </li>
                             <li class="has-dropdown">
-                                <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-                                    <span class="total-item-round">3</span></a>
+                                <a class="mini-cart-shop-link "><i class="fas fa-shopping-bag"></i>
+                                    <span class="total-item-round totalCartItems">{{ $totalCartItems }}</span></a>
                                 <!--====== Dropdown ======-->
                                 <span class="js-menu-toggle"></span>
                                 <div class="mini-cart">
