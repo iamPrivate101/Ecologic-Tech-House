@@ -53,6 +53,9 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     //Delete Cart Item Quantity
     Route::post('delete-cart-item',[ProductController::class,'deleteCartItem']);
 
+     //Empty Cart Item Quantity
+     Route::post('empty-cart',[ProductController::class,'emptyCart']);
+
 
 });
 

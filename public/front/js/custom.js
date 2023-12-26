@@ -112,7 +112,7 @@ $(document).ready(function () {
     $(document).on('click','.deleteCartItem',function(){
         var cartid = $(this).data('cartid');
         //confirmation to delete
-        var result = confirm("Are you sure you want to delete this Cart Item");
+        var result = confirm("Are you sure you want to delete this Cart Item ?");
         if(result){
             $.ajax({
                 headers: {
@@ -120,6 +120,30 @@ $(document).ready(function () {
                 },
                 data:{cartid:cartid},
                 url:'/delete-cart-item',
+                type:'post',
+                success:function(resp){
+                    // alert(resp);
+                    $(".totalCartItems").html(resp.totalCartItems);
+                    $("#appendCartItems").html(resp.view);
+                    $("#appendMiniCartItems").html(resp.minicartview);
+                },error:function(){
+                    alert("Error");
+                }
+
+            });
+        }
+    });
+
+    //Empty All  Cart Item
+    $(document).on('click','.emptyCart',function(){
+        //confirmation to delete
+        var result = confirm("Are you sure you want to Empty Your Cart ? ");
+        if(result){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:'/empty-cart',
                 type:'post',
                 success:function(resp){
                     // alert(resp);

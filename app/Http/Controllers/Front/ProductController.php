@@ -340,4 +340,29 @@ class ProductController extends Controller
     }
 
 
+    public function emptyCart(Request $request) {
+        if($request->ajax()){
+           //empty cart
+           emptyCart();
+
+            //Get Updated Cart Item
+            $getCartItems = getCartItems();
+            // dd($getCartItems);
+
+            //Get Total Cart Item
+            $totalCartItems = totalCartItems();
+
+            //Return The Updated Cart Item via Ajax
+            return response()->json([
+                'status'=>true,
+                'totalCartItems' => $totalCartItems,
+                'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'minicartview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems')),
+
+            ]);
+
+        }
+    }
+
+
 }
