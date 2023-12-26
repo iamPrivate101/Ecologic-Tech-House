@@ -15,7 +15,7 @@ $categories = Category::getCategories();
             <!--====== Primary Nav ======-->
             <div class="primary-nav">
                 <!--====== Main Logo ======-->
-                <a class="main-logo" href="index.html">
+                <a class="main-logo" href="{{ url('/') }}">
                     <img src="{{ asset('front/images/logo/logo-1.png') }}" alt=""></a>
                 <!--====== End - Main Logo ======-->
                 <!--====== Search Form ======-->

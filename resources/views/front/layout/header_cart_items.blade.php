@@ -37,7 +37,8 @@ $getCartItems = getCartItems();
                 <span class="mini-product__price">Rs {{ $getAttributePrice['final_price'] * $item['product_qty'] }}</span>
             </div>
         </div>
-        <a class="mini-product__delete-link far fa-trash-alt"></a>
+        <a class="mini-product__delete-link far fa-trash-alt deleteCartItem" data-cartid="{{ $item['id'] }}"
+        href="#"></a>
     </div>
     <?php $total_price = $total_price + $getAttributePrice['final_price'] * $item['product_qty']; ?>
 

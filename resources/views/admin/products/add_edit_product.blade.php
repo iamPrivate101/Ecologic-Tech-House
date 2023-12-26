@@ -105,14 +105,15 @@
 
                                         <div class="form-group">
                                             <label for="brand_id">Select Brand*</label>
-                                                <select name="brand_id" class="form-control" id="brand_id">
-                                                    <option value="">Select Brand</option>
-                                                    @foreach ($getBrands as $brand )
-                                                        <option value="{{ $brand['id'] }}"  @if(!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif >
-                                                            {{ $brand['brand_name'] }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                            <select name="brand_id" class="form-control" id="brand_id">
+                                                <option value="">Select Brand</option>
+                                                @foreach ($getBrands as $brand)
+                                                    <option value="{{ $brand['id'] }}"
+                                                        @if (!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif>
+                                                        {{ $brand['brand_name'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="row">
@@ -212,13 +213,13 @@
                                                         ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         @if (!empty($product['product_video']))
                                                             <a style="color:#3f6ed3" target="_blank"
-                                                                href="{{ url('front/videos/products/') . $product['product_video'] }}">View
+                                                                href="{{ url('front/videos/products/') . '/' . $product['product_video'] }}">View
                                                                 Video</a>
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                                             <a href="javascript:void(0)" style="color:#3f6ed3"
                                                                 class="confirmDelete"
-                                                                name="Delete Product Video                                                        title="Delete
+                                                                name="Delete Product Video                                              title="Delete
                                                                 Product="javascript:void(0)" record="product-video"
                                                                 record_id="{{ $product['id'] }}"><i
                                                                     class="fas fa-trash"></i></a>
@@ -264,7 +265,7 @@
                                                                         data-toggle="tooltip" data-placement="top"
                                                                         record="product-image"
                                                                         record_id="{{ $image['id'] }}">
-                                                                        <i class="fas fa-trash"></i> Delete
+                                                                        <i class="fas fa-trash"></i>
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -293,41 +294,47 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($product['attributes'] as $key => $attribute )
-                                                    <input type="hidden" name="attributeId[]" id="attributeId" value="{{ $attribute['id'] }}">
-                                                    <tr>
-                                                        <td>{{ $key+1 }}</td>
-                                                        <td>{{ $attribute['size'] }}</td>
-                                                        <td>{{ $attribute['sku'] }}</td>
-                                                        <td>
-                                                            <input style="width: 100px" type="number" name="price" value="{{ $attribute['price'] }}">
-                                                        </td>
-                                                        <td>
-                                                            <input style="width: 100px" type="number" name="stock" value="{{ $attribute['stock'] }}">
-                                                        </td>
-                                                        <td>
-                                                            @if ($attribute['status'] == 1)
-                                                            <a style="color:#3f6ed3" class="updateAttributeStatus"
-                                                                id="attribute-{{ $attribute['id'] }}"
-                                                                attribute_id="{{ $attribute['id'] }}"
-                                                                href="javascript:void(0)">
-                                                                <i class="fas fa-toggle-on" status="Active"></i>
-                                                            </a>
-                                                        @else
-                                                            <a class="updateAttributeStatus"
-                                                                id="attribute-{{ $attribute['id'] }}"
-                                                                attribute_id="{{ $attribute['id'] }}" style="color: gray"
-                                                                href="javascript:void(0)">
-                                                                <i class="fas fa-toggle-off" status="Inactive"></i>
-                                                            </a>
-                                                        @endif
-                                                        &nbsp;&nbsp;
+                                                    @foreach ($product['attributes'] as $key => $attribute)
+                                                        <input type="hidden" name="attributeId[]"
+                                                            value="{{ $attribute['id'] }}">
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $attribute['size'] }}</td>
+                                                            <td>{{ $attribute['sku'] }}</td>
+                                                            <td>
+                                                                <input style="width: 100px" type="number" name="updateprice[]"
+                                                                    value="{{ $attribute['price'] }}">
+                                                            </td>
+                                                            <td>
+                                                                <input style="width: 100px" type="number" name="updatestock[]"
+                                                                    value="{{ $attribute['stock'] }}">
+                                                            </td>
+                                                            <td>
+                                                                @if ($attribute['status'] == 1)
+                                                                    <a style="color:#3f6ed3" class="updateAttributeStatus"
+                                                                        id="attribute-{{ $attribute['id'] }}"
+                                                                        attribute_id="{{ $attribute['id'] }}"
+                                                                        href="javascript:void(0)">
+                                                                        <i class="fas fa-toggle-on" status="Active"></i>
+                                                                    </a>
+                                                                @else
+                                                                    <a class="updateAttributeStatus"
+                                                                        id="attribute-{{ $attribute['id'] }}"
+                                                                        attribute_id="{{ $attribute['id'] }}"
+                                                                        style="color: gray" href="javascript:void(0)">
+                                                                        <i class="fas fa-toggle-off"
+                                                                            status="Inactive"></i>
+                                                                    </a>
+                                                                @endif
+                                                                &nbsp;&nbsp;
 
-                                                        <a style="color:#3f6ed3" class="confirmDelete" name="Attribute" title="Delete Attribute" href="javascript:void(0)"
-                                                            record="attribute" record_id="{{ $attribute['id'] }}"><i
-                                                                class="fas fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
+                                                                <a style="color:#3f6ed3" class="confirmDelete"
+                                                                    name="Attribute" title="Delete Attribute"
+                                                                    href="javascript:void(0)" record="attribute"
+                                                                    record_id="{{ $attribute['id'] }}"><i
+                                                                        class="fas fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -369,179 +376,178 @@
 
 
 
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="description">Description</label>
-                                                        <textarea class="form-control" id="description" name="description" rows="3"
-                                                            placeholder="Enter Product Description">{{ old('description') }}@if (!empty($product['description']))
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <textarea class="form-control" id="description" name="description" rows="3"
+                                                        placeholder="Enter Product Description">{{ old('description') }}@if (!empty($product['description']))
 {{ $product['description'] }}
 @endif
 </textarea>
-                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-4">
 
-                                                    <div class="form-group">
-                                                        <label for="wash_care">Wash Care</label>
-                                                        <textarea class="form-control" id="wash_care" name="wash_care" rows="3"
-                                                            placeholder="Enter Product Wash Care">{{ old('wash_care') }}@if (!empty($product['wash_care']))
+                                                <div class="form-group">
+                                                    <label for="wash_care">Wash Care</label>
+                                                    <textarea class="form-control" id="wash_care" name="wash_care" rows="3"
+                                                        placeholder="Enter Product Wash Care">{{ old('wash_care') }}@if (!empty($product['wash_care']))
 {{ $product['wash_care'] }}
 @endif
 </textarea>
-                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="search_keywords">Search Keywords</label>
-                                                        <textarea class="form-control" id="search_keywords" name="search_keywords" rows="3"
-                                                            placeholder="Enter Product Search Keywords">{{ old('search_keywords') }}@if (!empty($product['search_keywords']))
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="search_keywords">Search Keywords</label>
+                                                    <textarea class="form-control" id="search_keywords" name="search_keywords" rows="3"
+                                                        placeholder="Enter Product Search Keywords">{{ old('search_keywords') }}@if (!empty($product['search_keywords']))
 {{ $product['search_keywords'] }}
 @endif
 </textarea>
-                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
 
 
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group ">
-                                                        <label for="laptop">Laptop</label>
-                                                        <select name="laptop" class="form-control">
-                                                            <option value="">Select</option>
-                                                            @foreach ($productsFilters['laptopArray'] as $laptop)
-                                                                <option value="{{ $laptop }}"
-                                                                    @if (!empty(@old('laptop')) && @old('laptop') == $laptop) selected
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group ">
+                                                    <label for="laptop">Laptop</label>
+                                                    <select name="laptop" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($productsFilters['laptopArray'] as $laptop)
+                                                            <option value="{{ $laptop }}"
+                                                                @if (!empty(@old('laptop')) && @old('laptop') == $laptop) selected
                                                             @elseif (!empty($product['laptop']) && $product['laptop'] == $laptop) selected @endif>
-                                                                    {{ $laptop }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                                                {{ $laptop }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="computer">Computer</label>
-                                                        <select name="computer" class="form-control">
-                                                            <option value="">Select</option>
-                                                            @foreach ($productsFilters['computerArray'] as $computer)
-                                                                <option value="{{ $computer }}"
-                                                                    @if (!empty(@old('computer')) && @old('computer') == $computer) selected
-                                                            @elseif (!empty($product['computer']) && $product['computer'] == $computer) selected @endif>
-                                                                    {{ $computer }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="mobile">Mobile</label>
-                                                        <select name="mobile" class="form-control">
-                                                            <option value="">Select</option>
-                                                            @foreach ($productsFilters['mobileArray'] as $mobile)
-                                                                <option value="{{ $mobile }}"
-                                                                    @if (!empty(@old('mobile')) && @old('mobile') == $mobile) selected
-                                                            @elseif (!empty($product['mobile']) && $product['mobile'] == $mobile) selected @endif>
-                                                                    {{ $mobile }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="company">Company</label>
-                                                        <select name="company" class="form-control">
-                                                            <option value="">Select</option>
-                                                            @foreach ($productsFilters['companyArray'] as $company)
-                                                                <option value="{{ $company }}"
-                                                                    @if (!empty(@old('company')) && @old('company') == $company) selected
-                                                            @elseif (!empty($product['company']) && $product['company'] == $company) selected @endif>
-                                                                    {{ $company }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="network">Network</label>
-                                                        <select name="network" class="form-control">
-                                                            <option value="">Select</option>
-                                                            @foreach ($productsFilters['networkArray'] as $network)
-                                                                <option value="{{ $network }}"
-                                                                    @if (!empty(@old('network')) && @old('network') == $network) selected
-                                                            @elseif (!empty($product['network']) && $product['network'] == $network) selected @endif>
-                                                                    {{ $network }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label for="is_featured">Featured Item</label>
-                                                        <input type="checkbox" name="is_featured" value="Yes"
-                                                            @if (!empty($product['is_featured']) && $product['is_featured'] == 'Yes') checked @endif>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label for="is_bestseller">Best Seller</label>
-                                                        <input type="checkbox" name="is_bestseller" value="Yes"
-                                                            @if (!empty($product['is_bestseller']) && $product['is_bestseller'] == 'Yes') checked @endif>
-                                                    </div>
-                                                </div>
-
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="meta_title">Meta Title</label>
-                                                        <input type="text" class="form-control" name="meta_title"
-                                                            id="meta_title" placeholder="Enter Product Meta Title"
-                                                            @if (!empty($product['meta_title'])) value="{{ $product['meta_title'] }}"
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="computer">Computer</label>
+                                                    <select name="computer" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($productsFilters['computerArray'] as $computer)
+                                                            <option value="{{ $computer }}"
+                                                                @if (!empty(@old('computer')) && @old('computer') == $computer) selected
+                                                            @elseif (!empty($product['computer']) && $product['computer'] == $computer) selected @endif>
+                                                                {{ $computer }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="mobile">Mobile</label>
+                                                    <select name="mobile" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($productsFilters['mobileArray'] as $mobile)
+                                                            <option value="{{ $mobile }}"
+                                                                @if (!empty(@old('mobile')) && @old('mobile') == $mobile) selected
+                                                            @elseif (!empty($product['mobile']) && $product['mobile'] == $mobile) selected @endif>
+                                                                {{ $mobile }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="company">Company</label>
+                                                    <select name="company" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($productsFilters['companyArray'] as $company)
+                                                            <option value="{{ $company }}"
+                                                                @if (!empty(@old('company')) && @old('company') == $company) selected
+                                                            @elseif (!empty($product['company']) && $product['company'] == $company) selected @endif>
+                                                                {{ $company }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="network">Network</label>
+                                                    <select name="network" class="form-control">
+                                                        <option value="">Select</option>
+                                                        @foreach ($productsFilters['networkArray'] as $network)
+                                                            <option value="{{ $network }}"
+                                                                @if (!empty(@old('network')) && @old('network') == $network) selected
+                                                            @elseif (!empty($product['network']) && $product['network'] == $network) selected @endif>
+                                                                {{ $network }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="is_featured">Featured Item</label>
+                                                    <input type="checkbox" name="is_featured" value="Yes"
+                                                        @if (!empty($product['is_featured']) && $product['is_featured'] == 'Yes') checked @endif>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="is_bestseller">Best Seller</label>
+                                                    <input type="checkbox" name="is_bestseller" value="Yes"
+                                                        @if (!empty($product['is_bestseller']) && $product['is_bestseller'] == 'Yes') checked @endif>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="meta_title">Meta Title</label>
+                                                    <input type="text" class="form-control" name="meta_title"
+                                                        id="meta_title" placeholder="Enter Product Meta Title"
+                                                        @if (!empty($product['meta_title'])) value="{{ $product['meta_title'] }}"
                                                     @else
                                                         value="{{ old('meta_title') }}" @endif>
 
-                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                            </div>
+                                            <div class="col-md-4">
 
-                                                    <div class="form-group">
-                                                        <label for="meta_keywords">Meta Keywords</label>
-                                                        <input type="text" class="form-control" name="meta_keywords"
-                                                            id="meta_keywords" placeholder="Enter Product Meta Keywords"
-                                                            @if (!empty($product['meta_keywords'])) value="{{ $product['meta_keywords'] }}" @else value="{{ old('meta_keywords') }}" @endif>
+                                                <div class="form-group">
+                                                    <label for="meta_keywords">Meta Keywords</label>
+                                                    <input type="text" class="form-control" name="meta_keywords"
+                                                        id="meta_keywords" placeholder="Enter Product Meta Keywords"
+                                                        @if (!empty($product['meta_keywords'])) value="{{ $product['meta_keywords'] }}" @else value="{{ old('meta_keywords') }}" @endif>
 
-                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="meta_description">Meta Description</label>
-                                                        <input type="text" class="form-control"
-                                                            name="meta_description" id="meta_description"
-                                                            placeholder="Enter Product Meta Description"
-                                                            @if (!empty($product['meta_description'])) value="{{ $product['meta_description'] }}" @else value="{{ old('meta_description') }}" @endif>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="meta_description">Meta Description</label>
+                                                    <input type="text" class="form-control" name="meta_description"
+                                                        id="meta_description" placeholder="Enter Product Meta Description"
+                                                        @if (!empty($product['meta_description'])) value="{{ $product['meta_description'] }}" @else value="{{ old('meta_description') }}" @endif>
 
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card-body -->
 
-                                        <div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
                                 </form>
                             </div>
                             <!-- /.col -->
