@@ -240,7 +240,9 @@ class ProductController extends Controller
 
 
             $message = "Product Added Successfully In Cart <a href= '/cart' style='color:#ffffff; text-decoration:underline'>View Cart</a> ";
-            return response()->json(['status'=>true, 'message'=>$message, 'totalCartItems'=>$totalCartItems]);
+            return response()->json(['status'=>true, 'message'=>$message, 'totalCartItems'=>$totalCartItems,
+            'minicartview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems')),
+            ]);
 
 
         }

@@ -15,7 +15,7 @@
                     data-placement="top" title="Quick Look"></a>
             </div>
             <div class="product-m__add-cart">
-                <a class="btn--e-brand" data-modal="modal"
+                <a href="{{ url('product/'.$product['id']) }}" class="btn--e-brand" data-modal="modal"
                     data-modal-id="#add-to-cart">View Details</a>
             </div>
         </div>
