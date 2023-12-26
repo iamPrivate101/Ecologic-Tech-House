@@ -15,5 +15,20 @@ function totalCartItems(){
     return $totalCartItems;
 }
 
+function getCartItems(){
+    if(Auth::check()){
+        //If The User Is Logged In , Check From Auth (user_id)
+        $user_id = Auth::user()->id;
+        $getCartItems = Cart::with('product')->where('user_id',$user_id)->get()->toArray();
+    }else{
+        //If The User Is NOT-Logged In , Check From Session (session_id)
+        $session_id = Session::get('session_id');
+        $getCartItems = Cart::with('product')->where('session_id',$session_id)->get()->toArray();
+    }
+
+    return $getCartItems;
+
+}
+
 
 ?>

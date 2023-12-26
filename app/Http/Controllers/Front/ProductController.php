@@ -234,6 +234,10 @@ class ProductController extends Controller
 
             //Get Total Cart Item
             $totalCartItems = totalCartItems();
+            $getCartItems = getCartItems();
+
+
+
 
             $message = "Product Added Successfully In Cart <a href= '/cart' style='color:#ffffff; text-decoration:underline'>View Cart</a> ";
             return response()->json(['status'=>true, 'message'=>$message, 'totalCartItems'=>$totalCartItems]);
@@ -244,7 +248,7 @@ class ProductController extends Controller
 
     //display cart item
     public function cart(){
-        $getCartItems = Cart::getCartItems();
+        $getCartItems = getCartItems();
         // dd($getCartItems);
         return view('front.products.cart')->with(compact('getCartItems'));
     }
@@ -265,11 +269,12 @@ class ProductController extends Controller
             //check if the desire stock from user is available
             //desire stock is greater than available stock
             if($data['qty'] > $availableStock['stock']){
-                $getCartItems = Cart::getCartItems();
+                $getCartItems = getCartItems();
                 return response()->json([
                     'status'=>false,
                     'message'=>'Requested Product Stock Not Available !!! Please Reduce The Number Of Order !!!',
                     'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'minicartview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems')),
                 ]);
             }
 
@@ -277,11 +282,13 @@ class ProductController extends Controller
             $availableSize = ProductsAttribute::where(['product_id'=>$cartDetails['product_id'], 'size'=>$cartDetails['product_size'], 'status'=>1])->count();
 
             if($availableSize == 0){
-                $getCartItems = Cart::getCartItems();
+                $getCartItems = getCartItems();
                 return response()->json([
                     'status'=>false,
                     'message'=>'Requested Product Size Not Available !!! Please Remove & Select Alternative Size !!!',
                     'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'minicartview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems')),
+
                 ]);
             }
 
@@ -290,7 +297,7 @@ class ProductController extends Controller
             Cart::where('id',$data['cartid'])->update(['product_qty'=>$data['qty']]);
 
             //Get Updated Cart Item
-            $getCartItems = Cart::getCartItems();
+            $getCartItems = getCartItems();
             // dd($getCartItems);
 
             //Get Total Cart Item
@@ -301,6 +308,7 @@ class ProductController extends Controller
                 'status'=>true,
                 'totalCartItems' => $totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'minicartview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems')),
             ]);
 
         }
@@ -313,7 +321,7 @@ class ProductController extends Controller
 
 
             //Get Updated Cart Item
-            $getCartItems = Cart::getCartItems();
+            $getCartItems = getCartItems();
             // dd($getCartItems);
 
             //Get Total Cart Item
@@ -324,6 +332,8 @@ class ProductController extends Controller
                 'status'=>true,
                 'totalCartItems' => $totalCartItems,
                 'view'=>(String)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'minicartview'=>(String)View::make('front.layout.header_cart_items')->with(compact('getCartItems')),
+
             ]);
 
         }

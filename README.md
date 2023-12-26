@@ -33,3 +33,5 @@ issue in  product filter size by ajax in #94  Product Controller line no 61   //
 
 //add to cart without the product attribute data returns error
 
+//
+issue in mini cart display as new product added to cart is not dispayed in mini cart via ajax
