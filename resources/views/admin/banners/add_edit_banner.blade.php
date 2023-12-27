@@ -70,8 +70,8 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="type">Banner Type</label>
-                                            <select class="form-control" name="type" id="type">
+                                            <label for="type">Banner Type*</label>
+                                            <select class="form-control" name="type" id="type" required>
                                                 <option value="">Select</option>
                                                 <option @if (!empty($banner['type']) && $banner['type']=="Slider") selected @endif value="Slider">Slider</option>
                                                 <option @if (!empty($banner['type']) && $banner['type']=="Fix") selected @endif value="Fix">Fix</option>
@@ -79,9 +79,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="banner_image">Banner Image</label>
+                                            <label for="banner_image">Banner Image*</label>
                                             <input type="file" class="form-control" name="banner_image"
-                                                id="banner_image" value="{{ old('banner_image') }}">
+                                                id="banner_image" value="{{ old('banner_image') }}" required>
                                             @if (!empty($banner['image']))
                                                 <input type="hidden" name="current_image" id="current_image"
                                                     value="{{ $banner['image'] }}">
@@ -96,30 +96,30 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="title">Title</label>
+                                            <label for="title">Title*</label>
                                             <input type="text" class="form-control" name="title"
-                                                id="title" placeholder="Enter Title"
+                                                id="title" placeholder="Enter Title" required
                                                 @if (!empty($banner['title'])) value="{{ $banner['title'] }}" @else value="{{ old('title') }}" @endif>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="alt">Alt</label>
+                                            <label for="alt">Alt*</label>
                                             <input type="text" class="form-control" name="alt"
-                                                id="alt" placeholder="Enter Alt"
+                                                id="alt" placeholder="Enter Alt" required
                                                 @if (!empty($banner['alt'])) value="{{ $banner['alt'] }}" @else value="{{ old('alt') }}" @endif>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="link">Banner Link*</label>
                                             <input type="text" class="form-control" name="link" id="link"
-                                                placeholder="Enter Banner Link"
+                                                placeholder="Enter Banner Link" required
                                                 @if (!empty($banner['link'])) value="{{ $banner['link'] }}" @else value="{{ old('link') }}" @endif>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="sort">Banner Sort*</label>
-                                            <input type="number" class="form-control" name="sort" id="sort"
-                                                placeholder="Enter Banner Sort"
+                                            <input type="number" min="0" class="form-control" name="sort" id="sort"
+                                                placeholder="Enter Banner Sort" required
                                                 @if (!empty($banner['sort'])) value="{{ $banner['sort'] }}" @else value="{{ old('sort') }}" @endif>
                                         </div>
 

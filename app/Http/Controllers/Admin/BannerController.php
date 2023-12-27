@@ -53,12 +53,12 @@ class BannerController extends Controller
     public function deleteBanner($id)
     {
         //GEt Banner Image
-        $bannerImage = Banner::where('id',$id)->first();
+        $bannerImage = Banner::select('image')->where('id',$id)->first();
         //Get Image Path
         $banner_image_path = "front/images/banners/";
         //Delete Banner Image If Exist
-        if(file_exists($banner_image_path.$bannerImage)){
-            unlink($banner_image_path.$bannerImage);
+        if(file_exists($banner_image_path.$bannerImage->image)){
+            unlink($banner_image_path.$bannerImage->image);
         }
 
         //Delete Banner Image from Banner table
@@ -120,6 +120,18 @@ class BannerController extends Controller
 
                 //Upload Banner Image
                 if ($request->hasFile('banner_image')) {
+
+                    //delete the previous image from the folder
+                    $previous_image = $banner->image;
+                    if(!empty($previous_image)){
+                        $banner_image_path = "front/images/banners/";
+                        //Delete Banner Image If Exist
+                        if(file_exists($banner_image_path.$previous_image)){
+                            unlink($banner_image_path.$previous_image);
+                        }
+                    }
+
+                    //add the new image to folder
                     $image_tmp = $request->file('banner_image');
                     if ($image_tmp->isValid()) {
                         //Get Image Extension

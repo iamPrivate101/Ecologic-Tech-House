@@ -72,7 +72,7 @@
                                         <div class="form-group">
                                             <label for="category_name">Category Name(Parent Category)*</label>
                                             <input type="text" class="form-control" name="category_name" id="category_name"
-                                                placeholder="Enter Category Name"
+                                                placeholder="Enter Category Name" required
                                                 @if (!empty($category['category_name'])) value="{{ $category['category_name'] }}" @else value="{{ old('category_name') }}"  @endif>
                                         </div>
                                         <div class="form-group">
@@ -116,14 +116,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="category_discount">Category Discount</label>
-                                            <input type="text" class="form-control" name="category_discount" id="category_discount"
+                                            <input type="number" class="form-control" name="category_discount" id="category_discount"
                                                 placeholder="Enter Category Discount"
+                                                step="any"
+                                                min="0"
                                                 @if (!empty($category['category_discount'])) value="{{ $category['category_discount'] }}" @else value="{{ old('category_discount') }}" @endif>
                                         </div>
                                         <div class="form-group">
                                             <label for="url">Category Url*</label>
                                             <input type="text" class="form-control" name="url" id="url"
-                                                placeholder="Enter Category Url"
+                                                placeholder="Enter Category Url" required
                                                 @if (!empty($category['url'])) value="{{ $category['url'] }}" @else value="{{ old('url') }}" @endif>
                                         </div>
 

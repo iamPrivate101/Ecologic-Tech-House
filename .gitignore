@@ -19,5 +19,9 @@ yarn-error.log
 /.vscode
 
 /public/admin/images
+/public/front/images/banners
+/public/front/images/brands
+/public/front/images/categories
+/public/front/images/products
 /public/front/images
 /public/front/videos
