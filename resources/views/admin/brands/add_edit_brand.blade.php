@@ -70,9 +70,9 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="brand_name">Brand Name</label>
+                                            <label for="brand_name">Brand Name*</label>
                                             <input type="text" class="form-control" name="brand_name" id="brand_name"
-                                                placeholder="Enter Brand Name"
+                                                placeholder="Enter Brand Name" required
                                                 @if (!empty($brand['brand_name'])) value="{{ $brand['brand_name'] }}" @else value="{{ old('brand_name') }}"  @endif>
                                         </div>
 
@@ -106,14 +106,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="brand_discount">Brand Discount</label>
-                                            <input type="text" class="form-control" name="brand_discount" id="brand_discount"
+                                            <input type="number" class="form-control" name="brand_discount" id="brand_discount"
                                                 placeholder="Enter Brand Discount"
+                                                step="any"
+                                                min="0"
                                                 @if (!empty($brand['brand_discount'])) value="{{ $brand['brand_discount'] }}" @else value="{{ old('brand_discount') }}" @endif>
                                         </div>
                                         <div class="form-group">
                                             <label for="url">Brand Url*</label>
                                             <input type="text" class="form-control" name="url" id="url"
-                                                placeholder="Enter Brand Url"
+                                                placeholder="Enter Brand Url" required
                                                 @if (!empty($brand['url'])) value="{{ $brand['url'] }}" @else value="{{ old('url') }}" @endif>
                                         </div>
 

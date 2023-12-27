@@ -111,6 +111,18 @@ class BrandController extends Controller
 
                 //Upload Brand Image
                 if ($request->hasFile('brand_image')) {
+
+                    //delete the previous image from the folder
+                    $previous_image = $brand->brand_image;
+                    if(!empty($previous_image)){
+                        $brands_image_path = "front/images/brands/";
+                        //Delete Brand Image If Exist
+                        if(file_exists($brands_image_path.$previous_image)){
+                            unlink($brands_image_path.$previous_image);
+                        }
+                    }
+
+                    //add new brand images
                     $image_tmp = $request->file('brand_image');
                     if ($image_tmp->isValid()) {
                         //Get Image Extension
@@ -133,6 +145,18 @@ class BrandController extends Controller
 
                 //Upload Brand Logo
                 if ($request->hasFile('brand_logo')) {
+
+                    //delete the previous image logo from the folder
+                    $previous_logo = $brand->brand_logo;
+                    if(!empty($previous_logo)){
+                        $brands_logo_path = "front/images/brands/";
+                        //Delete Banner Image If Exist
+                        if(file_exists($brands_logo_path.$previous_logo)){
+                            unlink($brands_logo_path.$previous_logo);
+                        }
+                    }
+
+                    //add new brand logo
                     $image_tmp = $request->file('brand_logo');
                     if ($image_tmp->isValid()) {
                         //Get Logo Extension

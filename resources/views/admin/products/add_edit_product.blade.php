@@ -70,73 +70,95 @@
                                     @csrf
                                     <div class="card-body">
 
-                                        <div class="form-group">
-                                            <label for="category_id">Select Category*</label>
-                                            <select name="category_id" id="category_id" class="form-control">
-                                                <option value="">Select Product</option>
-                                                @foreach ($getCategories as $cat)
-                                                    <option
-                                                        @if (!empty(@old('category_id')) && $cat['id'] == @old('category_id')) selected
-                                                            @elseif (!empty($product['category_id']) && $product['category_id'] == $cat['id']) selected @endif
-                                                        value="{{ $cat['id'] }}">{{ $cat['category_name'] }}</option>
-                                                    @if (!empty($cat['subcategories']))
-                                                        @foreach ($cat['subcategories'] as $subcat)
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="category_id">Select Category*</label>
+                                                    <select name="category_id" id="category_id" class="form-control" required>
+                                                        <option value="">Select Product</option>
+                                                        @foreach ($getCategories as $cat)
                                                             <option
-                                                                @if (!empty(@old('category_id')) && $subcat['id'] == @old('category_id')) selected
-                                                                    @elseif (!empty($product['category_id']) && $product['category_id'] == $subcat['id']) selected @endif
-                                                                value="{{ $subcat['id'] }}">
-                                                                &nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subcat['category_name'] }}
-                                                            </option>
-                                                            @if (!empty($subcat['subcategories']))
-                                                                @foreach ($subcat['subcategories'] as $subsubcat)
+                                                                @if (!empty(@old('category_id')) && $cat['id'] == @old('category_id')) selected
+                                                                    @elseif (!empty($product['category_id']) && $product['category_id'] == $cat['id']) selected @endif
+                                                                value="{{ $cat['id'] }}">{{ $cat['category_name'] }}</option>
+                                                            @if (!empty($cat['subcategories']))
+                                                                @foreach ($cat['subcategories'] as $subcat)
                                                                     <option
-                                                                        @if (!empty(@old('category_id')) && $subsubcat['id'] == @old('category_id')) selected
-                                                                            @elseif (!empty($product['category_id']) && $product['category_id'] == $subsubcat['id']) selected @endif
-                                                                        value="{{ $subsubcat['id'] }}">
-                                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subsubcat['category_name'] }}
+                                                                        @if (!empty(@old('category_id')) && $subcat['id'] == @old('category_id')) selected
+                                                                            @elseif (!empty($product['category_id']) && $product['category_id'] == $subcat['id']) selected @endif
+                                                                        value="{{ $subcat['id'] }}">
+                                                                        &nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subcat['category_name'] }}
                                                                     </option>
+                                                                    @if (!empty($subcat['subcategories']))
+                                                                        @foreach ($subcat['subcategories'] as $subsubcat)
+                                                                            <option
+                                                                                @if (!empty(@old('category_id')) && $subsubcat['id'] == @old('category_id')) selected
+                                                                                    @elseif (!empty($product['category_id']) && $product['category_id'] == $subsubcat['id']) selected @endif
+                                                                                value="{{ $subsubcat['id'] }}">
+                                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;&nbsp;{{ $subsubcat['category_name'] }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @endif
                                                                 @endforeach
                                                             @endif
                                                         @endforeach
-                                                    @endif
-                                                @endforeach
-                                            </select>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="brand_id">Select Brand*</label>
+                                                    <select name="brand_id" class="form-control" id="brand_id" required>
+                                                        <option value="">Select Brand</option>
+                                                        @foreach ($getBrands as $brand)
+                                                            <option value="{{ $brand['id'] }}"
+                                                            @if (!empty(@old('brand_id')) && $brand['id'] == @old('brand_id'))
+                                                                selected
+                                                                @elseif (!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif>
+                                                                {{ $brand['brand_name'] }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="brand_id">Select Brand*</label>
-                                            <select name="brand_id" class="form-control" id="brand_id">
-                                                <option value="">Select Brand</option>
-                                                @foreach ($getBrands as $brand)
-                                                    <option value="{{ $brand['id'] }}"
-                                                        @if (!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif>
-                                                        {{ $brand['brand_name'] }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+
 
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="product_name">Product Name*</label>
                                                     <input type="text" class="form-control" name="product_name"
-                                                        id="product_name"
+                                                        id="product_name" required
                                                         @if (!empty($product['product_name'])) value="{{ $product['product_name'] }}" @else value="{{ @old('product_name') }}" @endif
                                                         placeholder="Enter Product Name">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="product_weight">Product Weight</label>
+                                                    <input type="text" class="form-control" name="product_weight"
+                                                        id="product_weight"
+                                                        @if (!empty($product['product_weight'])) value="{{ $product['product_weight'] }}" @else value="{{ @old('product_weight') }}" @endif
+                                                        placeholder="Enter Product Weight">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="product_code">Product Code*</label>
                                                     <input type="text" class="form-control" name="product_code"
-                                                        id="product_code" placeholder="Enter Product Code"
+                                                        id="product_code" placeholder="Enter Product Code" required
                                                         @if (!empty($product['product_code'])) value="{{ $product['product_code'] }}" @else value="{{ @old('product_code') }}" @endif>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="group_code">Group Code</label>
                                                     <input type="text" class="form-control" name="group_code"
@@ -148,21 +170,23 @@
 
                                         </div>
 
+
+
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="product_color">Product Color*</label>
                                                     <input type="text" class="form-control" name="product_color"
-                                                        id="product_color"
+                                                        id="product_color" required
                                                         @if (!empty($product['product_color'])) value="{{ $product['product_color'] }}" @else value="{{ @old('product_color') }}" @endif
                                                         placeholder="Enter Product Color">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="family_color">Family Color*</label>
-                                                    <select name="family_color" class="form-control">
+                                                    <select name="family_color" class="form-control" required>
                                                         <option value="">Select Main Color</option>
                                                         @foreach ($familyColors as $color)
                                                             <option value="{{ $color['color_name'] }}"
@@ -176,38 +200,39 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="product_weight">Product Weight</label>
-                                                    <input type="text" class="form-control" name="product_weight"
-                                                        id="product_weight"
-                                                        @if (!empty($product['product_weight'])) value="{{ $product['product_weight'] }}" @else value="{{ @old('product_weight') }}" @endif
-                                                        placeholder="Enter Product Weight">
+                                                    <label for="product_discount">Product Discount</label>
+                                                    <input type="number" class="form-control" name="product_discount"
+                                                        id="product_discount"
+                                                        step="any"
+                                                        min="0"
+                                                        @if (!empty($product['product_discount'])) value="{{ $product['product_discount'] }}" @else value="{{ @old('product_discount') }}" @endif
+                                                        placeholder="Enter Product Discount">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="product_price">Product Price*</label>
+                                                    <input type="number" class="form-control" name="product_price"
+                                                        id="product_price"
+                                                        required
+                                                        step="any"
+                                                        min="0"
+                                                        @if (!empty($product['product_price'])) value="{{ $product['product_price'] }}" @else value="{{ @old('product_price') }}" @endif
+                                                        placeholder="Enter Product Price">
                                                 </div>
                                             </div>
 
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="product_discount">Product Discount</label>
-                                                    <input type="text" class="form-control" name="product_discount"
-                                                        id="product_discount"
-                                                        @if (!empty($product['product_discount'])) value="{{ $product['product_discount'] }}" @else value="{{ @old('product_discount') }}" @endif
-                                                        placeholder="Enter Product Discount %">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="product_price">Product Price*</label>
-                                                    <input type="text" class="form-control" name="product_price"
-                                                        id="product_price"
-                                                        @if (!empty($product['product_price'])) value="{{ $product['product_price'] }}" @else value="{{ @old('product_price') }}" @endif
-                                                        placeholder="Enter Product Code">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="product_video">Product Video [ 2 mb
                                                         ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -227,57 +252,54 @@
                                                     </label>
                                                     <input type="file" class="form-control" name="product_video"
                                                         id="product_video">
-
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="product_images">Product Image [ 1040 * 1200 ]
+                                                    </label>
+                                                    <input type="file" class="form-control" name="product_images[]"
+                                                        multiple="" id="product_images">
+                                                    <div style="margin: 20px;">
+                                                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
 
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="product_images">Product Image [ 1040 * 1200 ]
-                                                </label>
-                                                <input type="file" class="form-control" name="product_images[]"
-                                                    multiple="" id="product_images">
-                                                <div style="margin: 20px;">
-                                                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                                                            @foreach ($product['images'] as $image)
+                                                                <div
+                                                                    style="width: 150px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
 
-                                                        @foreach ($product['images'] as $image)
-                                                            <div
-                                                                style="width: 150px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
-
-                                                                <a target="_blank"
-                                                                    href="{{ url('front/images/products/large/' . $image['image']) }}">
-                                                                    <img style="width: 100%; height: auto; display: block; border-bottom: 2px solid #ddd;"
-                                                                        src="{{ asset('front/images/products/small/' . $image['image']) }}"
-                                                                        alt="Product Image">
-                                                                </a>
-
-                                                                <div style="padding: 10px; text-align: center;">
-                                                                    <input type="hidden" name="image[]"
-                                                                        value="{{ $image['image'] }}">
-                                                                    <input type="text" name="image_sort[]"
-                                                                        value="{{ $image['image_sort'] }}"
-                                                                        style="width: 50px; text-align: center; margin-top: 10px;">
-
-                                                                    <a href="javascript:void(0)"
-                                                                        style="color: #3f6ed3; text-decoration: none; margin-left: 10px;"
-                                                                        class="confirmDelete" title="Delete Product Image"
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        record="product-image"
-                                                                        record_id="{{ $image['id'] }}">
-                                                                        <i class="fas fa-trash"></i>
+                                                                    <a target="_blank"
+                                                                        href="{{ url('front/images/products/large/' . $image['image']) }}">
+                                                                        <img style="width: 100%; height: auto; display: block; border-bottom: 2px solid #ddd;"
+                                                                            src="{{ asset('front/images/products/small/' . $image['image']) }}"
+                                                                            alt="Product Image">
                                                                     </a>
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
 
+                                                                    <div style="padding: 10px; text-align: center;">
+                                                                        <input type="hidden" name="image[]"
+                                                                            value="{{ $image['image'] }}">
+                                                                        <input type="text" name="image_sort[]"
+                                                                            value="{{ $image['image_sort'] }}"
+                                                                            style="width: 50px; text-align: center; margin-top: 10px;">
+
+                                                                        <a href="javascript:void(0)"
+                                                                            style="color: #3f6ed3; text-decoration: none; margin-left: 10px;"
+                                                                            class="confirmDelete" title="Delete Product Image"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            record="product-image"
+                                                                            record_id="{{ $image['id'] }}">
+                                                                            <i class="fas fa-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+
+                                                        </div>
                                                     </div>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
+
+
 
 
                                         <div class="form-group">
@@ -342,6 +364,14 @@
                                         </div>
 
 
+                                        <?php
+                                        $has_product_attribute = count($product['attributes']);
+                                        if($has_product_attribute > 0){
+                                            $required_product_attribute = "";
+                                        }else{
+                                            $required_product_attribute = "required";
+                                        }
+                                        ?>
 
                                         <div class="form-group">
                                             <label for="product_attribute">Add Attribute</label>
@@ -349,19 +379,24 @@
                                                 <div class="form-row">
                                                     <div class="col-md-3">
                                                         <input type="text" name="size[]" id="size"
-                                                            class="form-control" value="" placeholder="Size" />
+                                                            class="form-control" value="" placeholder="Size" {{ $required_product_attribute }} />
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input type="text" name="sku[]" id="sku"
-                                                            class="form-control" value="" placeholder="SKU" />
+                                                            class="form-control" value="" placeholder="SKU" {{ $required_product_attribute }} />
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <input type="text" name="price[]" id="price"
-                                                            class="form-control" value="" placeholder="Price" />
+                                                        <input type="number" name="price[]" id="price"
+                                                            class="form-control"
+                                                            step="any"
+                                                            min="0"
+                                                            value="" placeholder="Price" {{ $required_product_attribute }} />
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <input type="text" name="stock[]" id="stock"
-                                                            class="form-control" value="" placeholder="Stock" />
+                                                        <input type="number" name="stock[]" id="stock"
+                                                            step="any"
+                                                            min="0"
+                                                            class="form-control" value="" placeholder="Stock" {{ $required_product_attribute }} />
                                                     </div>
 
                                                     <div class="col-md-1">

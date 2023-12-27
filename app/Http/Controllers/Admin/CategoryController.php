@@ -111,8 +111,21 @@ class CategoryController extends Controller
 
                 $this->validate($request, $rules, $customMessages);
 
+
                 //Upload Category Image
                 if ($request->hasFile('category_image')) {
+
+                    //delete the previous image from the folder
+                    $previous_image = $category->category_image;
+                    if(!empty($previous_image)){
+                        $category_image_path = "front/images/categories/";
+                        //Delete Previous Category Image If Exist
+                        if(file_exists($category_image_path.$previous_image)){
+                            unlink($category_image_path.$previous_image);
+                        }
+                    }
+
+                    //Add new Category Image
                     $image_tmp = $request->file('category_image');
                     if ($image_tmp->isValid()) {
                         //Get Image Extension
@@ -123,7 +136,7 @@ class CategoryController extends Controller
                         //Upload Category Image
                         Image::make($image_tmp)->save($image_path);
                     }
-                } else if (!empty($data['current_image'])) {
+                } elseif (!empty($data['current_image'])) {
                     $imageName = $data['current_image'];
                 } else {
                     $imageName = '';

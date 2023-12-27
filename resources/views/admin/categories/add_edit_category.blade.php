@@ -105,6 +105,8 @@
                                             <label for="category_image">Category Image</label>
                                             <input type="file" class="form-control" name="category_image" id="category_image"  value="{{ old('category_image') }}">
                                             @if (!empty($category['category_image']))
+                                            <input type="hidden" name="current_image" id="current_image"
+                                            value="{{ $category['category_image'] }}">
                                                 <a target="_bank" href="{{ url('front/images/categories/'.$category['category_image']) }}">
                                                 <img style="width: 100px; margin: 10px" src="{{ asset('front/images/categories/'.$category['category_image']) }}" alt="category_image">
                                                 </a>
