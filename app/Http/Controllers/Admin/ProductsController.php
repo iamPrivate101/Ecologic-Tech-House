@@ -57,6 +57,49 @@ class ProductsController extends Controller
 
     public function deleteProduct($id)
     {
+
+        //Get Product Image
+        $productImages = ProductsImage::select('image')->where('product_id',$id)->get();
+
+        //Image Path For Small, Medium, Large
+        $large_image_path = 'front/images/products/large/';
+        $medium_image_path = 'front/images/products/medium/';
+        $small_image_path = 'front/images/products/small/';
+
+        //Unlinking multiple image file
+        foreach($productImages as $productImage){
+            // Delete Product Small Image If exits in small folder
+            if(file_exists($small_image_path.$productImage->image)){
+                unlink($small_image_path.$productImage->image);
+            }
+
+            // Delete Product Medium Image If exits in medium folder
+            if(file_exists($medium_image_path.$productImage->image)){
+                unlink($medium_image_path.$productImage->image);
+            }
+
+            // Delete Product Large Image If exits in large folder
+            if(file_exists($large_image_path.$productImage->image)){
+                unlink($large_image_path.$productImage->image);
+            }
+        }
+
+        //Deleting Product Video
+        //GEt Banner Image
+        $productVideo = Product::select('product_video')->where('id',$id)->first();
+        //Get Image Path
+        $product_video_path = "front/videos/products/";
+        //Delete Banner Image If Exist
+        if(file_exists($product_video_path.$productVideo->product_video)){
+            unlink($product_video_path.$productVideo->product_video);
+        }
+
+
+
+        //Delete Product Image From productsImage table
+        ProductsImage::where('id',$id)->delete();
+
+
         Product::where('id', $id)->delete();
         $message = "Product Deleted Sucessfully";
         return redirect()->back()->with("success_message", $message);
@@ -139,6 +182,17 @@ class ProductsController extends Controller
 
             //Upload Product Video
             if($request->hasFile('product_video')){
+                //delete the previous video from the folder
+                $previous_video = $product->product_video;
+                if(!empty($previous_video)){
+                    $product_video_path = "front/videos/products/";
+                    //Delete video If Exist
+                    if(file_exists($product_video_path.$previous_video)){
+                        unlink($product_video_path.$previous_video);
+                    }
+                }
+
+
                 $video_tmp = $request->file('product_video');
                 if($video_tmp->isValid()){
                     //Upload Video

@@ -231,77 +231,13 @@
 
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="product_video">Product Video [ 2 mb
-                                                        ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        @if (!empty($product['product_video']))
-                                                            <a style="color:#3f6ed3" target="_blank"
-                                                                href="{{ url('front/videos/products/') . '/' . $product['product_video'] }}">View
-                                                                Video</a>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                                            <a href="javascript:void(0)" style="color:#3f6ed3"
-                                                                class="confirmDelete"
-                                                                name="Delete Product Video                                              title="Delete
-                                                                Product="javascript:void(0)" record="product-video"
-                                                                record_id="{{ $product['id'] }}"><i
-                                                                    class="fas fa-trash"></i></a>
-                                                        @endif
-                                                    </label>
-                                                    <input type="file" class="form-control" name="product_video"
-                                                        id="product_video">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="product_images">Product Image [ 1040 * 1200 ]
-                                                    </label>
-                                                    <input type="file" class="form-control" name="product_images[]"
-                                                        multiple="" id="product_images">
-                                                    <div style="margin: 20px;">
-                                                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-                                                            @foreach ($product['images'] as $image)
-                                                                <div
-                                                                    style="width: 150px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
-
-                                                                    <a target="_blank"
-                                                                        href="{{ url('front/images/products/large/' . $image['image']) }}">
-                                                                        <img style="width: 100%; height: auto; display: block; border-bottom: 2px solid #ddd;"
-                                                                            src="{{ asset('front/images/products/small/' . $image['image']) }}"
-                                                                            alt="Product Image">
-                                                                    </a>
-
-                                                                    <div style="padding: 10px; text-align: center;">
-                                                                        <input type="hidden" name="image[]"
-                                                                            value="{{ $image['image'] }}">
-                                                                        <input type="text" name="image_sort[]"
-                                                                            value="{{ $image['image_sort'] }}"
-                                                                            style="width: 50px; text-align: center; margin-top: 10px;">
-
-                                                                        <a href="javascript:void(0)"
-                                                                            style="color: #3f6ed3; text-decoration: none; margin-left: 10px;"
-                                                                            class="confirmDelete" title="Delete Product Image"
-                                                                            data-toggle="tooltip" data-placement="top"
-                                                                            record="product-image"
-                                                                            record_id="{{ $image['id'] }}">
-                                                                            <i class="fas fa-trash"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
 
+                                        <?php
+                                        $has_product_attribute = count($product['attributes']);
+                                        ?>
 
-
+                                        @if($has_product_attribute > 0)
                                         <div class="form-group">
                                             <label for="product_attribute">Added Attribute</label>
                                             <table style="background-color: #2c2d2e" cellpadding="10" width="50%">
@@ -362,10 +298,9 @@
                                             </table>
 
                                         </div>
-
+                                        @endif
 
                                         <?php
-                                        $has_product_attribute = count($product['attributes']);
                                         if($has_product_attribute > 0){
                                             $required_product_attribute = "";
                                         }else{
@@ -546,6 +481,78 @@
                                         </div>
 
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="product_video">Product Video [ 2 mb
+                                                        ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        @if (!empty($product['product_video']))
+                                                            <a style="color:#3f6ed3" target="_blank"
+                                                                href="{{ url('front/videos/products/') . '/' . $product['product_video'] }}">View
+                                                                Video</a>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                            <a href="javascript:void(0)" style="color:#3f6ed3"
+                                                                class="confirmDelete"
+                                                                name="Delete Product Video                                              title="Delete
+                                                                Product="javascript:void(0)" record="product-video"
+                                                                record_id="{{ $product['id'] }}"><i
+                                                                    class="fas fa-trash"></i></a>
+                                                        @endif
+                                                    </label>
+                                                    <input type="file" class="form-control" name="product_video"
+                                                        id="product_video">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="product_images">Product Image [ 1040 * 1200 ]
+                                                    </label>
+                                                    <input type="file" class="form-control" name="product_images[]"
+                                                        multiple="" id="product_images">
+                                                    <div style="margin: 20px;">
+                                                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                                                            @foreach ($product['images'] as $image)
+                                                                <div
+                                                                    style="width: 150px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+
+                                                                    <a target="_blank"
+                                                                        href="{{ url('front/images/products/large/' . $image['image']) }}">
+                                                                        <img style="width: 100%; height: auto; display: block; border-bottom: 2px solid #ddd;"
+                                                                            src="{{ asset('front/images/products/small/' . $image['image']) }}"
+                                                                            alt="Product Image">
+                                                                    </a>
+
+                                                                    <div style="padding: 10px; text-align: center;">
+                                                                        <input type="hidden" name="image[]"
+                                                                            value="{{ $image['image'] }}">
+                                                                        <input type="text" name="image_sort[]"
+                                                                            value="{{ $image['image_sort'] }}"
+                                                                            style="width: 50px; text-align: center; margin-top: 10px;">
+
+                                                                        <a href="javascript:void(0)"
+                                                                            style="color: #3f6ed3; text-decoration: none; margin-left: 10px;"
+                                                                            class="confirmDelete" title="Delete Product Image"
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            record="product-image"
+                                                                            record_id="{{ $image['id'] }}">
+                                                                            <i class="fas fa-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="meta_title">Meta Title</label>
@@ -577,6 +584,10 @@
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
                                     </div>
                                     <!-- /.card-body -->
 
