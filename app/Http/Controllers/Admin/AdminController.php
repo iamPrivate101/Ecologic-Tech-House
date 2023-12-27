@@ -149,6 +149,17 @@ class AdminController extends Controller
 
             //Upload Admin Image
             if ($request->hasFile('admin_image')) {
+                //delete the previous admin image from the folder
+                $previous_admin_image = $data['current_image'];
+                if(!empty($previous_admin_image)){
+                    $admin_image_path = "admin/images/photos/";
+                    //Delete Admin Image If Exist
+                    if(file_exists($admin_image_path.$previous_admin_image)){
+                        unlink($admin_image_path.$previous_admin_image);
+                    }
+                }
+
+                //add new admin image
                 $image_tmp = $request->file('admin_image');
                 if ($image_tmp->isValid()) {
                     //Get Image Extension
@@ -253,6 +264,18 @@ class AdminController extends Controller
 
             //Upload Subadmin Image
             if ($request->hasFile('image')) {
+
+                 //delete the previous profile image from the folder
+                 $previous_profile_image = $subadmindata->image;
+                 if(!empty($previous_profile_image)){
+                     $profile_image_path = "admin/images/photos/";
+                     //Delete Profile Image If Exist
+                     if(file_exists($profile_image_path.$previous_profile_image)){
+                         unlink($profile_image_path.$previous_profile_image);
+                     }
+                 }
+
+                 //add new profile image
                 $image_tmp = $request->file('image');
                 if ($image_tmp->isValid()) {
                     //Get Image Extension
